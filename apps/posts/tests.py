@@ -61,12 +61,11 @@ class PostTest(TestCase):
         post = form.save()
 
         self.client.login(username = 'kecebongsoft', password='123')
-        response = selft.client.post(
-            reverse('posts:edit'),
+        response = self.client.post(
+            reverse('posts:edit', args=[post.id]),
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
-                'post_id' : post.id,
             }
         )
         self.assertEqual(response.status_code, 200)
@@ -80,11 +79,10 @@ class PostTest(TestCase):
 
         self.client.login(username = 'admin', password='123')
         response = self.client.post(
-            reverse('posts:edit'),
+            reverse('posts:edit', args=[post.id]),
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
-                'post' : post,
             }
         )
         self.assertEqual(response.status_code, 200)
@@ -99,11 +97,10 @@ class PostTest(TestCase):
 
         self.client.login(username = 'dedi', password='123')
         response = self.client.post(
-            reverse('posts:edit'),
+            reverse('posts:edit',args=[post.id]),
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
-                'post' : post,
             }
         )
         self.assertEqual(response.status_code, 500)
