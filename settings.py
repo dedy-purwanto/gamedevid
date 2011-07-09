@@ -107,6 +107,7 @@ INSTALLED_APPS = (
 
     # Site Apps
     'users',
+    'home',
     'posts',
 
 )
