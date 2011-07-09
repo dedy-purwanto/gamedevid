@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block content %}
+<h2>User Login</h2>
+<form method='post' action='{% url "users:login" %}'>
+{{form.errors}}
+{{form.as_p}}
+{% csrf_token %}
+<button type='submit'>Login</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% load url from future %}
+{% if request.user.is_authenticated %}
+Welcome, {{request.user}} 
+<a href='{% url "users:logout" %}'>Log Out</a>
+{% else %}
+<form method='post' action='{% url "users:login" %}'>
+    <input type='text' name='username' id='username' /> 
+    <input type='password' name='password' id='password' />
+    <button type='submit'>Login</button>
+    {% csrf_token %}
+</form>
+<a href='{% url "users:register" %}'>Register</a>
+{% endif %}

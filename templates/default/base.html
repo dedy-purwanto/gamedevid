@@ -1,12 +1,12 @@
+{% spaceless %}
 {% load url from future %}
 {% load compress %}
-{% spaceless %}
+
 <!DOCTYPE html>
 <html>
     <head>
-    <!-- Global CSS Files -->
-
-    <!-- Global JS Files -->
+    {# Global CSS Files #}
+    {# Global JS Files #}
 
     <title>Gamedevid</title>
     
@@ -15,7 +15,20 @@
     {% block js-local %}{% endblock %}
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <div id='header'>
+            <h1>Gamedevid</h1>
+            {% include "users/auth_widget.html" %}
+        </div>
+        <hr />
+        <div id='content'>
+            {% block content %}{% endblock %}
+        </div>
+        <hr />
+        <div id='footer'>
+            <p align='center'>
+                <small>Gamedevid 2011</small>
+            </p>
+        </div>
     </body>
 </html>
 {% endspaceless %}
