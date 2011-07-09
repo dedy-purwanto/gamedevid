@@ -19,9 +19,6 @@ def edit(request, post_id):
         return HttpResponse(status = 404)
     
     form = PostForm(request.POST or None, instance = post, author = request.user)
-    if request.POST:
-        if form.is_valid():
-            form.save()
-            return HttpResponse(status = 200)
-        else:
-            return HttpResponse(status = 500)
+    if form.is_valid():
+        form.save()
+        return HttpResponse(status = 200)
