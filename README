@@ -9,3 +9,29 @@ Core stuff:
 4. Profit!!
 
 Dev site: http://122.248.234.35/	
+
+Those who wants to contribute and test on their own server, here is some details:
+
+Minimum django version: 1.3
+Minimum python version: 2.7
+
+Required django apps:
+    - south
+    - sentry
+    - django-compressor
+
+Create a file settings_local.py on project root directory, current content are (can be overrided, it is ignored in .gitignore):
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'your_database',
+        'USER': 'your_username',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+Production server has some additional configuration, but dev server will run just fine without it, any changes
+that is needed to be updated in dev environment will be placed here.
