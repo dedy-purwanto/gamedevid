@@ -56,7 +56,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.COmpressorFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 SECRET_KEY = '27_m6x(16_zz!=uc5)jr^u1%riua7k@-qk#bo%i=z(^7q$%6)l'
