@@ -1,0 +1,21 @@
+{% load url from future %}
+{% load compress %}
+{% spaceless %}
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Global CSS Files -->
+
+    <!-- Global JS Files -->
+
+    <title>Gamedevid</title>
+    
+    {% block css-local %}{% endblock %}
+    
+    {% block js-local %}{% endblock %}
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
+{% endspaceless %}
