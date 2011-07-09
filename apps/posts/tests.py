@@ -3,33 +3,34 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test import Client
 
+from users.tests import TestUtils
+
 from forms import PostForm
 
 # Test post form object
 class PostFormTest(TestCase):
-    def test_no_author(self):
-        form = PostForm({'title' : 'This is title', 'content' : 'This is content'})
-        self.assertFalse(form.is_valid())
+    def setUp(self):
+        TestUtils.generate_users()
     def test_no_title(self):
         author = User.objects.get(username = 'kecebongsoft')
-        form = PostForm({'content' : 'This is content','author' : author})
+        form = PostForm({'content' : 'This is content',} , author = author)
         self.assertFalse(form.is_valid())
     def test_no_content(self):
         author = User.objects.get(username = 'kecebongsoft')
-        form = PostForm({'title' : 'This is title', 'author' : author})
+        form = PostForm({'title' : 'This is title', } , author = author)
         self.assertFalse(form.is_valid())
     def test_author_title_content(self):
         author = User.objects.get(username = 'kecebongsoft')
         form = PostForm({'title' : 'This is title', 'content' : 'This is content',
-                         'author' : author})
+                         } , author = author)
         self.assertTrue(form.is_valid())
     def test_duplicated_content_regardless_author(self): 
         author = User.objects.get(username = 'kecebongsoft')
         form1 = PostForm({'title' : 'This is title', 'content' : 'This is content',
-                          'author' : author})
+                          } , author = author)
         
         form2 = PostForm({'title' : 'This is title', 'content' : 'This is content',
-                          'author' : author})
+                          } , author = author)
 
         self.assertTrue(form1.is_valid())
         form1.save()
@@ -38,9 +39,10 @@ class PostFormTest(TestCase):
         pass
 
 class PostTest(TestCase):
+    def setUp(self):
+        TestUtils.generate_users()
     def test_new_post(self):
-        c = Client()
-        c.login(username = 'kecebongsoft', password='123')
+        self.client.login(username = 'kecebongsoft', password='123')
         response = self.client.post(
             reverse('posts:new'),
             {
@@ -48,18 +50,18 @@ class PostTest(TestCase):
                 'content' : 'This is content',
             }
         )
+        print(response.content)
         self.assertEqual(response.status_code, 200)
 
     def test_edit_post(self):
         author = User.objects.get(username = 'kecebongsoft')
         form = PostForm({'title' : 'This is title', 'content' : 'This is content',
-                         'author' : author})
-        form.assertTrue(form.is_valid())
+                         } , author = author)
+        self.assertTrue(form.is_valid())
         post = form.save()
 
-        c = Client()
-        c.login(username = 'kecebongsoft', password='123')
-        response = self.client.post(
+        self.client.login(username = 'kecebongsoft', password='123')
+        response = selft.client.post(
             reverse('posts:edit'),
             {
                 'title' : 'This is another title',
@@ -72,18 +74,17 @@ class PostTest(TestCase):
         author = User.objects.get(username = 'kecebongsoft')
 
         form = PostForm({'title' : 'This is title', 'content' : 'This is content',
-                         'author' : author})
+                         } , author = author)
         self.assertTrue(form.is_valid())
         post = form.save()
 
-        c = Client()
-        c.login(username = 'admin', password='123')
+        self.client.login(username = 'admin', password='123')
         response = self.client.post(
             reverse('posts:edit'),
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
-                'post_id' : post.id,
+                'post' : post,
             }
         )
         self.assertEqual(response.status_code, 200)
@@ -92,18 +93,17 @@ class PostTest(TestCase):
         author = User.objects.get(username = 'kecebongsoft')
 
         form = PostForm({'title' : 'This is title', 'content' : 'This is content',
-                         'author' : author})
+                         } , author = author)
         self.assertTrue(form.is_valid())
         post = form.save()
 
-        c = Client()
-        c.login(username = 'dedi', password='123')
+        self.client.login(username = 'dedi', password='123')
         response = self.client.post(
             reverse('posts:edit'),
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
-                'post_id' : post.id,
+                'post' : post,
             }
         )
         self.assertEqual(response.status_code, 500)
