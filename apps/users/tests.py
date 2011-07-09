@@ -44,4 +44,5 @@ class LoginTest(TestCase):
                     'password' : '123',
                 }
             )
-        self.assertEqual(response.status_code, 200)
+        #Must redirect to somewhere upon succesful login
+        self.assertEqual(response.status_code, 302)
