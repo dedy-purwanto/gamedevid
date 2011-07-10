@@ -16,6 +16,6 @@ class Post(models.Model):
     def get_replies(self):
         return Post.objects.filter(parent = self).order_by('id')
     def get_last_reply(self):
-        return self.get_replies().all().latest('id')
+        return self.get_replies().all().order_by('-id').latest('id')
     class Meta:
         db_table = u'post'
