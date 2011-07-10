@@ -1,6 +1,6 @@
 {% load url from future %}
 {% for p in posts_latests %}
-<b><a href='{% url "posts:view" post_id=p.id %}'>{{p.title}}</a></b><br />
+<b><a href='{% url "posts:view" post_id=p.id %}'>{{p.title}} ({{p.get_replies.count}} replies)</a></b><br />
 {{p.content|linebreaks}}<br />
 <i>{{p.author}} - {{p.date_created}}</i><br /><br />
 {% endfor %}
