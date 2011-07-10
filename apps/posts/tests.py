@@ -104,7 +104,7 @@ class PostTest(TestCase):
                 'content' : 'This is another content',
             }
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
     def test_edit_post_different_user_admin(self):
         author = User.objects.get(username = 'kecebongsoft')
 
@@ -121,4 +121,4 @@ class PostTest(TestCase):
                 'content' : 'This is another content',
             }
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)

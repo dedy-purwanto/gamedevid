@@ -9,7 +9,12 @@ class PostForm(forms.ModelForm):
         self.author = kwargs.pop('author')
         super(PostForm, self).__init__(*args, **kwargs)
     def clean_title(self):
-        title = self.data['title']
+        title = self.cleaned_data['title']
+        try:
+            if self.instance.pk:
+                return title
+        except:
+            pass
         try:
             post = Post.objects.get(title = title)
             if post is not None:
@@ -17,13 +22,18 @@ class PostForm(forms.ModelForm):
         except Post.DoesNotExist:
             return title
     def clean_content(self):
-        title = self.data['content']
+        content = self.cleaned_data['content']
         try:
-            post = Post.objects.get(title = title)
+            if self.instance.pk:
+                return content
+        except:
+            pass
+        try:
+            post = Post.objects.get(content = content)
             if post is not None:
                 raise ValidationError("This content already exists")
         except Post.DoesNotExist:
-            return title
+            return content
     def is_valid(self):
         is_valid = super(PostForm, self).is_valid()
         try:

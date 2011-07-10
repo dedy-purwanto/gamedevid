@@ -5,4 +5,11 @@
 <h2><b>{{post.title}}</b></h2><br />
 <i>{{post.author}}</i> - <small>{{post.date_created}}</small><br />
 {{post.content|linebreaks}}
+
+<br />
+{# allow edit for both author and admin #}
+{% if post.author == request.user or request.user.is_staff or request.user.is_superuser %}
+    <a href='{% url 'posts:edit' post_id=post.id %}'>Edit</a>
+{% endif %}
+
 {% endblock %}

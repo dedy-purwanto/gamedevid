@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% block content %}
-<form method='post' action='{% url "posts:new" %}'>
+<form method='post' action=''>
 {{form.errors}}
 Title : {{form.title}}<br />
 Content : <br />{{form.content}}<br />
