@@ -1,0 +1,4 @@
+{% load url from future %}
+{% if request.user.is_authenticated %}
+<a href='{% url "posts:new" %}'>New Post</a>
+{% endif %}

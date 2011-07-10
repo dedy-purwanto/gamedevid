@@ -87,7 +87,8 @@ class PostTest(TestCase):
                 'content' : 'This is content',
             }
         )
-        self.assertEqual(response.status_code, 200)
+        # Should redirect to somewhere upon succesfully creating a new posts
+        self.assertEqual(response.status_code, 302)
 
     def test_edit_post(self):
         author = User.objects.get(username = 'kecebongsoft')

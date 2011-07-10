@@ -1,0 +1,6 @@
+{% load url from future %}
+{% for p in posts_latests %}
+<b>{{p.title}}</b><br />
+{{p.content}}<br />
+<i>{{p.author}} - {{p.date_created}}</i><br /><br />
+{% endfor %}

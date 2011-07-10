@@ -1,9 +1,10 @@
-from django.forms import ModelForm
+from django import forms
 from django.forms import ValidationError
 from django.contrib.auth.models import User
 from models import Post
 
-class PostForm(ModelForm):
+class PostForm(forms.ModelForm):
+    title = forms.CharField()
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author')
         super(PostForm, self).__init__(*args, **kwargs)
