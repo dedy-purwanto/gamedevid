@@ -216,7 +216,7 @@ class PostTest(TestCase):
 
         self.client.login(username = 'dedi', password='123')
         response = self.client.post(
-            reverse('posts:reply', args=[post.id]),
+            reverse('posts:new_reply', args=[post.id]),
             {
                 'content' : 'This is a reply content',
             }

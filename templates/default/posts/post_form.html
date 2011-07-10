@@ -3,7 +3,7 @@
 {% block content %}
 <form method='post' action=''>
 {{form.errors}}
-Title : {{form.title}}<br />
+{% if form.title %}Title : {{form.title}}<br />{% endif %}
 Content : <br />{{form.content}}<br />
 {% csrf_token %}
 <button type='submit'>Post</button>

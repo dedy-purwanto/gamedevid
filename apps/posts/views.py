@@ -8,11 +8,14 @@ from .models import Post
 from .forms import PostForm
 
 @login_required
-def new(request):
-    form = PostForm(request.POST or None, author = request.user)
+def new(request, parent_id = None):
+    parent = None
+    if parent_id:
+        parent = get_object_or_404(Post, pk = parent_id)
+    form = PostForm(request.POST or None, author = request.user, parent = parent)
     if form.is_valid():
         post = form.save()
-        return redirect(reverse("posts:view", args=[post.id])) 
+        return redirect(reverse("posts:view", args=[post.id if parent_id is None else parent_id])) 
     context = {
                 'form' : form,
               }
@@ -29,7 +32,8 @@ def edit(request, post_id):
     form = PostForm(request.POST or None, instance = post, author = request.user)
     if form.is_valid():
         form.save()
-        return redirect(reverse("posts:view", args=[post.id])) 
+        
+        return redirect(reverse("posts:view", args=[post.id if post.parent is None else post.parent.id])) 
     context = {
                 'form' : form,
               }
@@ -38,7 +42,7 @@ def edit(request, post_id):
                                 "posts/post_form.html",
                                 context,
                                 RequestContext(request)
-                             )        
+                             )
 def view(request, post_id):
     post = get_object_or_404(Post, pk = post_id)
     context = {
@@ -46,7 +50,7 @@ def view(request, post_id):
               }
 
     return render_to_response(
-                                "posts/view.html",
+                                "posts/view_main.html",
                                 context,
                                 RequestContext(request)
                              )
