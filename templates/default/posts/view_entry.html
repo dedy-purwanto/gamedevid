@@ -1,11 +1,14 @@
 {% load url from future %}
-
-{% if p.title %}<h2><b>{{p.title}}</b></h2>{% endif %}
-<i>{{p.author}}</i> - <small>{{p.date_created}}</small><br />
+<div class='post'>
+<div class='author'>
+    <i>{{p.author}}</i><br />
+    <small>{{p.date_created}}</small>
+</div>
+<div>
 {{p.content|linebreaks}}
-<br />
 {# allow edit for both author and admin #}
 {% if p.author == request.user or request.user.is_staff or request.user.is_superuser %}
     <a href='{% url 'posts:edit' post_id=p.id %}'>Edit</a>
 {% endif %}
-
+</div>
+</div>

@@ -1,6 +1,12 @@
 {% load url from future %}
 {% for p in posts_latests %}
-<b><a href='{% url "posts:view" post_id=p.id %}'>{{p.title}} ({{p.get_replies.count}} replies)</a></b><br />
-{{p.content|linebreaks}}<br />
-<i>{{p.author}} - {{p.date_created}}</i><br /><br />
+<b><a href='{% url "posts:view" post_id=p.id %}'>{{p.title}}</a></b>
+by <span class='post_author'>{{p.author}}</span> 
+on <span class='post_date'>{{p.date_created}}</span><br />
+Replies: {{p.get_replies.count}} 
+Views: 0 {{p.get_views.count}}
+{% if p.get_replies.count > 0 %}
+    <br />Last Reply: {{p.get_last_reply.author}}
+{% endif %}
+<br /><br />
 {% endfor %}

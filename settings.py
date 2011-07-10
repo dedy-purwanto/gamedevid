@@ -51,6 +51,7 @@ STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 STATICFILES_DIRS = (
+        PROJECT_PATH + '/static-dev',
 )
 
 STATICFILES_FINDERS = (
@@ -131,7 +132,7 @@ LOGGING = {
         },
     }
 }
-
+LOGIN_URL = '/users/login/'
 try:
     from settings_local import *
 except ImportError:

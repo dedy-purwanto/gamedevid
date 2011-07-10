@@ -5,31 +5,40 @@
 <!DOCTYPE html>
 <html>
     <head>
+    {# Web Fonts Impot #}
+    <link href='http://fonts.googleapis.com/css?family=Play:700&v2' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Cabin:400,400italic,700&v2' rel='stylesheet' type='text/css'>
+
+
     {# Global CSS Files #}
+    <link type="text/css" href="{{ STATIC_URL }}css/default/main.css" rel="Stylesheet" />
     {# Global JS Files #}
 
     <title>Gamedevid</title>
     
     {% block css-local %}{% endblock %}
     
-    {% block js-local %}{% endblock %}
     </head>
     <body>
-        <div id='header'>
-            <h1><a href='/'>Gamedevid</a></h1>
-            {% include "users/auth_widget.html" %}<br />
-            {% include "posts/header_widget.html" %}
+        <div id="global_container">
+            <div id='header'>
+                <a href='/' id="header_text">GameDevID</a>
+                <a href='/' id="header_info">Indonesia Game Developers</a>
+                {% include "users/auth_widget.html" %}<br />
+                {% include "posts/header_widget.html" %}
+            </div>
+            <hr />
+            <div id='content'>
+                {% block content %}{% endblock %}
+            </div>
+            <hr />
+            <div id='footer'>
+                <p align='center'>
+                    <small>Gamedevid 2011</small>
+                </p>
+            </div>
         </div>
-        <hr />
-        <div id='content'>
-            {% block content %}{% endblock %}
-        </div>
-        <hr />
-        <div id='footer'>
-            <p align='center'>
-                <small>Gamedevid 2011</small>
-            </p>
-        </div>
+        {% block js-local %}{% endblock %}
     </body>
 </html>
 {% endspaceless %}

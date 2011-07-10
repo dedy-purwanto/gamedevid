@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% block content %}
+<div class='post_title'>
+    {{post.title}}
+</div>
 {% include "posts/view_entry.html" with p=post %}
 {% for r in post.get_replies %}
-<hr />
-{% include "posts/view_entry.html" with p=r %}
+    {% include "posts/view_entry.html" with p=r %}
 {% endfor %}
-<hr />
 <a href='{% url 'posts:new_reply' parent_id=post.id %}'>Reply</a>
 {% endblock %}
