@@ -15,7 +15,7 @@ def new(request, parent_id = None):
     form = PostForm(request.POST or None, author = request.user, parent = parent)
     if form.is_valid():
         post = form.save()
-        return redirect(reverse("posts:view", args=[post.id if parent_id is None else parent_id])) 
+        return redirect(reverse("posts:view", args=[post.id if parent_id is None else parent_id, post.title_slug()])) 
     context = {
                 'form' : form,
               }
@@ -33,7 +33,7 @@ def edit(request, post_id):
     if form.is_valid():
         form.save()
         
-        return redirect(reverse("posts:view", args=[post.id if post.parent is None else post.parent.id])) 
+        return redirect(reverse("posts:view", args=[post.id if post.parent is None else post.parent.id, post.title_slug()])) 
     context = {
                 'form' : form,
               }
@@ -43,7 +43,7 @@ def edit(request, post_id):
                                 context,
                                 RequestContext(request)
                              )
-def view(request, post_id):
+def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
     context = {
                 'post' : post,

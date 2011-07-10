@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template import defaultfilters
 
 # Create your models here.
 class Post(models.Model):
@@ -17,5 +18,7 @@ class Post(models.Model):
         return Post.objects.filter(parent = self).order_by('id')
     def get_last_reply(self):
         return self.get_replies().all().order_by('-id').latest('id')
+    def title_slug(self):
+        return defaultfilters.slugify(self.title)
     class Meta:
         db_table = u'post'
