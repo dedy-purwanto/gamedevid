@@ -24,10 +24,7 @@ def new(request):
                              )
 @login_required
 def edit(request, post_id):
-    try:
-        post = Post.objects.get(pk = post_id)
-    except:
-        return HttpResponse(status = 404)
+    post = get_object_or_404(Post, pk = post_id)
     
     form = PostForm(request.POST or None, instance = post, author = request.user)
     if form.is_valid():
