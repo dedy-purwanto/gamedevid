@@ -15,7 +15,8 @@ def new(request, parent_id = None):
     form = PostForm(request.POST or None, author = request.user, parent = parent)
     if form.is_valid():
         post = form.save()
-        return redirect(reverse("posts:view", args=[post.id if parent_id is None else parent_id, post.title_slug()])) 
+        r_post = post if not parent else parent
+        return redirect(reverse("posts:view", args=[r_post.id, r_post.title_slug()])) 
     context = {
                 'form' : form,
               }
@@ -32,8 +33,8 @@ def edit(request, post_id):
     form = PostForm(request.POST or None, instance = post, author = request.user)
     if form.is_valid():
         form.save()
-        
-        return redirect(reverse("posts:view", args=[post.id if post.parent is None else post.parent.id, post.title_slug()])) 
+        r_post = post if not post.parent else post.parent
+        return redirect(reverse("posts:view", args=[r_post.id, r_post.title_slug()])) 
     context = {
                 'form' : form,
               }
