@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+<h2><b>{{post.title}}</b></h2><br />
+<i>{{post.author}}</i> - <small>{{post.date_created}}</small<br />
+{{post.content|linebreaks}}
+{% endblock %}

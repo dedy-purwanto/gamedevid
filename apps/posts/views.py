@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.shortcuts import redirect
 from .models import Post
@@ -32,3 +32,16 @@ def edit(request, post_id):
     if form.is_valid():
         form.save()
         return HttpResponse(status = 200)
+
+def view(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    context = {
+                'post' : post,
+              }
+
+    return render_to_response(
+                                "posts/view.html",
+                                context,
+                                RequestContext(request)
+                             )
+
