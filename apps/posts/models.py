@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Post(models.Model):
-    title = models.TextField(blank = False, null = False)
+    title = models.TextField(blank = True, null = True)
     content = models.TextField(blank = False, null = False)
     author = models.ForeignKey(User, related_name = "post")
     date_created = models.DateTimeField(auto_now_add = True)

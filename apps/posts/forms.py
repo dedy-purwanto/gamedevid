@@ -4,10 +4,24 @@ from django.contrib.auth.models import User
 from models import Post
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField()
+    title = forms.CharField(required = True)
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author')
+        parent = None
+        if 'parent' in kwargs:
+            parent = kwargs.pop('parent')
         super(PostForm, self).__init__(*args, **kwargs)
+        
+        is_reply = False
+        if self.instance.pk:
+            if self.instance.parent:
+                is_reply = True
+        if parent: #If it's in reply mode, don't use title
+            is_reply = True
+            self.instance.parent = parent
+        
+        if is_reply:
+            self.fields.pop('title')
     def clean_title(self):
         title = self.cleaned_data['title']
         try:
