@@ -48,9 +48,10 @@ class PostForm(forms.ModelForm):
         return is_valid
     def save(self):
         post = super(PostForm, self).save(commit = False)
-        post.author = self.author
+        if not self.instance.pk:
+            post.author = self.author
         post.save()
         return post
     class Meta:
         model = Post
-        exclude = ('author',)
+        exclude = ('author','parent')

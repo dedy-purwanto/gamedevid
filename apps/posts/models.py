@@ -7,6 +7,7 @@ class Post(models.Model):
     content = models.TextField(blank = False, null = False)
     author = models.ForeignKey(User, related_name = "post")
     date_created = models.DateTimeField(auto_now_add = True)
+    parent = models.ForeignKey("self", blank = True, null = True)
     def __unicode__(self):
         return self.title
     @staticmethod
