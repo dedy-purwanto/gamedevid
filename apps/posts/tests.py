@@ -36,7 +36,6 @@ class PostFormTest(TestCase):
         form1.save()
 
         self.assertFalse(form2.is_valid())
-        pass
     def test_edit_post(self):
         author = User.objects.get(username = 'kecebongsoft')
 
