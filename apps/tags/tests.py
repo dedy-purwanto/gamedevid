@@ -34,17 +34,18 @@ class TagFormTest(TestCase):
     def setUp(self):
         TagUtils.generate_tags()
         UserTestUtils.generate_users()
-
+        author = User.objects.get(username = 'kecebongsoft')
         form = PostForm({'title' : 'This is title', 'content' : 'This is content',
                         } , author = author)
         self.post_form = form
         self.assertTrue(self.post_form.is_valid())
         self.post = self.post_form.save()
-
+    def test_adding_existing_tag(self): #should fail
         tag = Tag()
-        tag.name = 'sticky_tag'
-        tag.sticky = True
-        tag.save()
+        tag.name = "sticky1"
+        tag.sticky = False #regardless the sticky flag (wtf is sticky flag?!)
+        self.assertFalse(tag.save())
+        
     def test_no_sticky_tag(self): #should fail
         form = TagForm({'tag_sticky' : '', 
                         'tag_optional' : 'tag1, tag2'},
@@ -115,6 +116,38 @@ class TagTest(TestCase):
     def setUp(self):
         UserTestUtils.generate_users()
         TestUtils.generate_tags()
+        author = User.objects.get(username = 'kecebongsoft')
+        form = PostForm({'title' : 'This is title', 'content' : 'This is content',
+                        } , author = author)
+        self.post_form = form
+        self.assertTrue(self.post_form.is_valid())
+        self.post = self.post_form.save()
+
     def test_new_post(self):
-        
+        self.client.login(username = 'kecebongsoft', password = '123')
+        response = self.client.post(
+            reverse('posts:new'),
+            {
+                'title' : 'This is title',
+                'content' : 'This is content',
+                'tag_sticky' : 'sticky1',
+                'tag_optional' : 'a,b,c',
+            }
+        )
+        # Should redirect to somewhere upon sucessfully creating a new posts
+        self.assertEqual(response.status_code, 302)
     def test_edit_post(self):
+        self.client.login(username = 'kecebongsoft', password = '123')
+        
+        response = self.client.post(
+            reverse('posts:edit', args=[post.id]),
+            {
+                'title' : 'This is another title',
+                'content' : 'This is another content',
+                'tag_sticky' : 'sticky3',
+                'tag_optional' : 'b,e,f',
+            }
+        )
+
+        #Should redirect to somewhere upon sucessfully creating a new posts
+        self.assertEqual(response.status_code, 302)
