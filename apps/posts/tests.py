@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test import Client
 from users.tests import TestUtils
+from tags.tests import TestUtils as TagTestUtils
 
 from forms import PostForm
 
@@ -161,6 +162,7 @@ class PostFormTest(TestCase):
 class PostTest(TestCase):
     def setUp(self):
         TestUtils.generate_users()
+        TagTestUtils.generate_tags()
     def test_new_post(self):
         self.client.login(username = 'kecebongsoft', password='123')
         response = self.client.post(
@@ -168,6 +170,8 @@ class PostTest(TestCase):
             {
                 'title' : 'This is title',
                 'content' : 'This is content',
+                'tag_sticky' : 'sticky1',
+                'tag_optional' : '',
             }
         )
         # Should redirect to somewhere upon succesfully creating a new posts
@@ -186,6 +190,8 @@ class PostTest(TestCase):
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
+                'tag_sticky' : 'sticky1',
+                'tag_optional' : '',
             }
         )
         self.assertEqual(response.status_code, 302)
@@ -203,6 +209,8 @@ class PostTest(TestCase):
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
+                'tag_sticky' : 'sticky1',
+                'tag_optional' : '',
             }
         )
         self.assertEqual(response.status_code, 302)

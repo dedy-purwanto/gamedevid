@@ -92,9 +92,9 @@ class TagFormTest(TestCase):
         #Assume we create a new post
         form = TagForm({'tag_sticky' : 'sticky1', 
 
-                        'tag_optional' : 'anuku,testajah'},
-                        post = self.post)
+                        'tag_optional' : 'anuku,testajah'})
         self.assertTrue(form.is_valid())
+        form.post = self.post
         self.assertTrue(form.save())
         self.assertEqual(self.post.tags.count(), 2)
         

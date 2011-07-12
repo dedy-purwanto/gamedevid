@@ -8,7 +8,9 @@ class TagForm(forms.Form):
     tag_sticky = forms.CharField(max_length = 255)
     tag_optional  = forms.CharField(max_length = 500, required = False)
     def __init__(self, *args, **kwargs):
-        self.post = kwargs.pop('post')
+        self.post = None
+        if 'post' in kwargs:
+            self.post = kwargs.pop('post')
         self.tags = None
         super(TagForm, self).__init__(*args, **kwargs)
     def clean_tag_sticky(self, *args, **kwargs):
@@ -40,6 +42,8 @@ class TagForm(forms.Form):
         if tags is not None:
             self.tags = tags
     def save(self):
+        if self.post is None:
+            return False
         #Clean up all tags that is related to this posts
         tag_post = TagPost.objects.filter(post = self.post)
         for tp in tag_post:
