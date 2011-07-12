@@ -11,11 +11,11 @@ class TagForm(forms.Form):
         tag_optional_initial = None
         if 'post' in kwargs:
             self.post = kwargs.pop('post')
-            tag_sticky_initial = self.post.tags.all().order_by('id')[0] #Sticky always came as the first one
+            tag_sticky_initial = self.post.sticky_tag
 
-            tag_optional = self.post.tags.all().order_by('id')[1:] #Non optional came after it
-            if tag_optional.count() > 0:
-                tag_optional_names = [t.tag.name for t in tag_optional]
+            tag_optional = self.post.optional_tags
+            if len(tag_optional) > 0:
+                tag_optional_names = [t.name for t in tag_optional]
                 tag_optional_initial = ", ".join(tag_optional_names)
 
         super(TagForm, self).__init__(*args, **kwargs)

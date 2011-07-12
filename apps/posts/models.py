@@ -11,6 +11,18 @@ class Post(models.Model):
     parent = models.ForeignKey("self", related_name = "post_parent", blank = True, null = True)
     def __unicode__(self):
         return self.title
+    @property
+    def sticky_tag(self):
+        for t in self.tags.all():
+            if t.tag.sticky:
+                return t
+    @property
+    def optional_tags(self):
+        tags = []
+        for t in self.tags.all().order_by('-id'):
+            if not t.tag.sticky:
+                tags.append(t.tag)
+        return tags if len(tags) > 0 else None
     @staticmethod
     def get_latests():
         return Post.objects.filter(parent = None).order_by('-id')

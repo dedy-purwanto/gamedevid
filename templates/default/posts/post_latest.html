@@ -8,5 +8,12 @@ Views: 0 {{p.get_views.count}}
 {% if p.get_replies.count > 0 %}
     <br />Last Reply: {{p.get_last_reply.author}}
 {% endif %}
+{% if p.tags %}
+    <br />
+    <span class='post_tag_item_sticky'>{{p.sticky_tag}}</span>
+    {% for t in p.optional_tags %}
+        <span class='post_tag_item'>{{t}}</span>
+    {% endfor %}
+{% endif %}
 <br /><br />
 {% endfor %}

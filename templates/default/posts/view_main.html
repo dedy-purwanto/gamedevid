@@ -3,6 +3,15 @@
 {% block content %}
 <div class='post_title'>
     {{post.title}}
+    {% with post as p %}
+    {% if p.tags %}
+        <br />
+        <span class='post_tag_item_sticky'>{{p.sticky_tag}}</span>
+        {% for t in p.optional_tags %}
+            <span class='post_tag_item'>{{t}}</span>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 </div>
 {% include "posts/view_entry.html" with p=post %}
 {% for r in post.get_replies %}
