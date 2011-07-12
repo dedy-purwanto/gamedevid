@@ -14,7 +14,7 @@ class TagForm(forms.Form):
             tag_sticky_initial = self.post.sticky_tag
 
             tag_optional = self.post.optional_tags
-            if len(tag_optional) > 0:
+            if tag_optional is not None:
                 tag_optional_names = [t.name for t in tag_optional]
                 tag_optional_initial = ", ".join(tag_optional_names)
 

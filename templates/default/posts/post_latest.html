@@ -10,7 +10,7 @@ Views: 0 {{p.get_views.count}}
 {% endif %}
 {% if p.tags %}
     <br />
-    <span class='post_tag_item_sticky'>{{p.sticky_tag}}</span>
+    {% if p.sticky_tag %}<span class='post_tag_item_sticky'>{{p.sticky_tag}}</span>{% endif %}
     {% for t in p.optional_tags %}
         <span class='post_tag_item'>{{t}}</span>
     {% endfor %}
