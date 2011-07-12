@@ -5,14 +5,23 @@ from django.contrib.auth.models import User
 from .models import Tag, TagPost
 
 class TagForm(forms.Form):
-    tag_sticky = forms.CharField(max_length = 255)
-    tag_optional  = forms.CharField(max_length = 500, required = False)
     def __init__(self, *args, **kwargs):
         self.post = None
+        tag_sticky_initial = None
+        tag_optional_initial = None
         if 'post' in kwargs:
             self.post = kwargs.pop('post')
-        self.tags = None
+            tag_sticky_initial = self.post.tags.all().order_by('id')[0] #Sticky always came as the first one
+
+            tag_optional = self.post.tags.all().order_by('id')[1:] #Non optional came after it
+            tag_optional_names = [t.tag.name for t in tag_optional]
+            tag_optional_initial = ", ".join(tag_optional_names)
+
         super(TagForm, self).__init__(*args, **kwargs)
+        
+        self.fields['tag_sticky'] = forms.CharField(max_length = 255, initial = tag_sticky_initial)
+        self.fields['tag_optional'] = forms.CharField(max_length = 500, required = False, initial = tag_optional_initial)
+        self.tags = None
     def clean_tag_sticky(self, *args, **kwargs):
         #Check if tag_sticky exists in our sticky tags, if not, raise an error
         tag_sticky = self.data['tag_sticky']        

@@ -22,5 +22,7 @@ class Tag(models.Model):
 class TagPost(models.Model):
     tag = models.ForeignKey(Tag, related_name = 'tagpost')
     post = models.ForeignKey(Post, related_name = 'tags')
+    def __unicode__(self):
+        return self.tag.name
     class Meta:
         db_table = u'tag_post'
