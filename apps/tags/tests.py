@@ -32,7 +32,7 @@ class TestUtils():
             tag.save()
 class TagFormTest(TestCase):
     def setUp(self):
-        TagUtils.generate_tags()
+        TestUtils.generate_tags()
         UserTestUtils.generate_users()
         author = User.objects.get(username = 'kecebongsoft')
         form = PostForm({'title' : 'This is title', 'content' : 'This is content',
@@ -67,38 +67,36 @@ class TagFormTest(TestCase):
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(TagPost.get_tags(self.post).count(), 2)
+        self.assertEqual(self.post.tags.count(), 2)
     def test_single_non_sticky_tag(self): #should success
         form = TagForm({'tag_sticky' : 'sticky1', 
                         'tag_optional' : 'halo'},
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(TagPost.get_tags(self.post).count(), 2)
+        self.assertEqual(self.post.tags.count(), 1)
     def test_multiple_non_sticky_tag(self): #should success
         form = TagForm({'tag_sticky' : 'sticky1', 
                         'tag_optional' : 'halo, satu,,,,, dua, tiga, empat,lima,enam,tujuh,lapan'},
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(TagPost.get_tags(self.post).count(), 9)
+        self.assertEqual(self.post.tags.count(), 9)
     def test_clash_sticky_non_sticky_tag(self): #should fail
         form = TagForm({'tag_sticky' : 'sticky1', 
                         'tag_optional' : 'sticky2,testajah'},
                         post = self.post)
         self.assertFalse(form.is_valid())
-        self.assertTrue(form.save())
-        self.assertEqual(TagPost.get_tags(self.post).count(), 2)
     def test_edit_post(self): #should success (able to delete tags for that post and recreates it)
         
         #Assume we create a new post
         form = TagForm({'tag_sticky' : 'sticky1', 
 
-                        'tag_optional' : 'sticky2,testajah'},
+                        'tag_optional' : 'anuku,testajah'},
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(TagPost.get_tags(post).count(), 2)
+        self.assertEqual(self.post.tags.count(), 2)
         
         #and we edit that post
         self.post.title = "this is another title"
@@ -106,11 +104,11 @@ class TagFormTest(TestCase):
         
         #can it delete all tags on this post and recreates it?
         form = TagForm({'tag_sticky' : 'sticky1', 
-                        'tag_optional' : 'sticky2, testajah, test lagih'},
+                        'tag_optional' : 'anukulagi, testajah, test lagih'},
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(TagPost,get_tags(post).count(), 3)
+        self.assertEqual(self.post.tags.count(), 3)
 
 class TagTest(TestCase):
     def setUp(self):
@@ -128,8 +126,8 @@ class TagTest(TestCase):
         response = self.client.post(
             reverse('posts:new'),
             {
-                'title' : 'This is title',
-                'content' : 'This is content',
+                'title' : 'This is new title',
+                'content' : 'This is new content',
                 'tag_sticky' : 'sticky1',
                 'tag_optional' : 'a,b,c',
             }
@@ -140,7 +138,7 @@ class TagTest(TestCase):
         self.client.login(username = 'kecebongsoft', password = '123')
         
         response = self.client.post(
-            reverse('posts:edit', args=[post.id]),
+            reverse('posts:edit', args=[self.post.id]),
             {
                 'title' : 'This is another title',
                 'content' : 'This is another content',
