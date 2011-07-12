@@ -1,3 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+from posts.models import Post
+
+class Tag(models.Model):
+    name = models.TextField()
+    sticky = models.BooleanField()
+    date_created = models.DateTimeField(auto_now_add = True)
+
+    #Ensure the uniqueness manually, since I can't mange to migrate in production server
+    #by using unique attribute
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            tags = Tag.objects.filter(name = self.name)
+            if tags is not None:
+                return False
+        super(Tag, self).save(*args, **kwargs)
+    class Meta:
+        db_table = u'tag'
+class TagPost(models.Model):
+    tag = models.ForeignKey(Tag, related_name = 'tagpost_tag')
+    post = models.ForeignKey(Post, related_name = 'tagpost_post')
+    class Meta:
+        db_table = u'tag_post'
