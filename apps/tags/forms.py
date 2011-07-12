@@ -14,8 +14,9 @@ class TagForm(forms.Form):
             tag_sticky_initial = self.post.tags.all().order_by('id')[0] #Sticky always came as the first one
 
             tag_optional = self.post.tags.all().order_by('id')[1:] #Non optional came after it
-            tag_optional_names = [t.tag.name for t in tag_optional]
-            tag_optional_initial = ", ".join(tag_optional_names)
+            if tag_optional.count() > 0:
+                tag_optional_names = [t.tag.name for t in tag_optional]
+                tag_optional_initial = ", ".join(tag_optional_names)
 
         super(TagForm, self).__init__(*args, **kwargs)
         
