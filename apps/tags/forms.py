@@ -17,7 +17,7 @@ class TagForm(forms.Form):
         #Check if tag_sticky exists in our sticky tags, if not, raise an error
         tag_sticky = self.data['tag_sticky']        
         try:
-            tag = Tag.objects.get(name = tag_sticky)
+            tag = Tag.objects.get(name = tag_sticky, sticky = True)
         except Tag.DoesNotExist:
             raise ValidationError("Tag %s is not in the sticky tag list masbro" % tag_sticky)
     def clean_tag_optional(self, *args, **kwargs):
@@ -50,6 +50,10 @@ class TagForm(forms.Form):
             tp.delete()
 
         #Save this the tag and the post to TagPost
+        tag_sticky = self.data['tag_sticky']
+        self.tags = [tag_sticky] + self.tags
+        #Remove duplicates from tag list
+        self.tags = list(set(self.tags))
         if self.tags is not None:
             if len(self.tags) > 0:
                 for t in self.tags:
@@ -58,9 +62,7 @@ class TagForm(forms.Form):
                     except Tag.DoesNotExist:
                         tag = Tag(name = t, sticky = False)
                         tag.save()
-                    tag_post = TagPost()
-                    tag_post.tag = tag
-                    tag_post.post = self.post
+                    tag_post = TagPost(tag = tag, post = self.post)
                     tag_post.save()
         
         return True

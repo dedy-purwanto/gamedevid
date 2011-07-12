@@ -26,6 +26,7 @@ def new(request, parent_id = None):
         return redirect(reverse("posts:view", args=[r_post.id, r_post.title_slug()])) 
     context = {
                 'form' : form,
+                'tag_form' : tag_form,
               }
 
     return render_to_response(
@@ -47,6 +48,7 @@ def edit(request, post_id):
         return redirect(reverse("posts:view", args=[r_post.id, r_post.title_slug()])) 
     context = {
                 'form' : form,
+                'tag_form' : tag_form,
               }
 
     return render_to_response(

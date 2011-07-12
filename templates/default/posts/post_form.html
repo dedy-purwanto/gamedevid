@@ -3,8 +3,13 @@
 {% block content %}
 <form method='post' action=''>
 {{form.errors}}
-{% if form.title %}Title : {{form.title}}<br />{% endif %}
+{{tag_form.errors}}
+{% if form.title %}
+    {{tag_form.tag_sticky}}
+    {{form.title}}<br />
+{% endif %}
 Content : <br />{{form.content}}<br />
+Optional Tags (Comma Separated) : {{tag_form.tag_optional}}<br />
 {% csrf_token %}
 <button type='submit'>Post</button>
 </form>

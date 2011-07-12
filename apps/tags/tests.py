@@ -67,21 +67,21 @@ class TagFormTest(TestCase):
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(self.post.tags.count(), 2)
+        self.assertEqual(self.post.tags.count(), 3)
     def test_single_non_sticky_tag(self): #should success
         form = TagForm({'tag_sticky' : 'sticky1', 
                         'tag_optional' : 'halo'},
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(self.post.tags.count(), 1)
+        self.assertEqual(self.post.tags.count(), 2)
     def test_multiple_non_sticky_tag(self): #should success
         form = TagForm({'tag_sticky' : 'sticky1', 
                         'tag_optional' : 'halo, satu,,,,, dua, tiga, empat,lima,enam,tujuh,lapan'},
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(self.post.tags.count(), 9)
+        self.assertEqual(self.post.tags.count(), 10)
     def test_clash_sticky_non_sticky_tag(self): #should fail
         form = TagForm({'tag_sticky' : 'sticky1', 
                         'tag_optional' : 'sticky2,testajah'},
@@ -96,7 +96,7 @@ class TagFormTest(TestCase):
         self.assertTrue(form.is_valid())
         form.post = self.post
         self.assertTrue(form.save())
-        self.assertEqual(self.post.tags.count(), 2)
+        self.assertEqual(self.post.tags.count(), 3)
         
         #and we edit that post
         self.post.title = "this is another title"
@@ -108,7 +108,7 @@ class TagFormTest(TestCase):
                         post = self.post)
         self.assertTrue(form.is_valid())
         self.assertTrue(form.save())
-        self.assertEqual(self.post.tags.count(), 3)
+        self.assertEqual(self.post.tags.count(), 4)
 
 class TagTest(TestCase):
     def setUp(self):
