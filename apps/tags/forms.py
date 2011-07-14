@@ -11,7 +11,11 @@ class TagForm(forms.Form):
         tag_optional_initial = None
         if 'post' in kwargs:
             self.post = kwargs.pop('post')
-            tag_sticky_initial = self.post.sticky_tag
+            
+            if self.post.sticky_tags:
+                tag_sticky_initial = self.post.sticky_tags[0]
+            else:
+                tag_sticky_initial = ""
 
             tag_optional = self.post.optional_tags
             if tag_optional is not None:

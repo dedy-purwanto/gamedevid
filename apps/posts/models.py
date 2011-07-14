@@ -12,10 +12,8 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
     @property
-    def sticky_tag(self):
-        for t in self.tags.all():
-            if t.tag.sticky:
-                return t
+    def sticky_tags(self):
+        return self.tags.filter(tag__sticky = True)
     @property
     def optional_tags(self):
         tags = []
