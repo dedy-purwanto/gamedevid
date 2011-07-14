@@ -40,12 +40,14 @@ class TagForm(forms.Form):
             for t in tags_optional:
                 t = t.strip()
                 if len(t) > 0:
+                    if len(t) > 30:
+                        raise ValidationError("Tag \"%s\" is more than 30 characters maximum" % t)
                     try:
                         tag = Tag.objects.get(name = t)
                         if tag is not None:
                             #If this tag is sticky, raise an error
                             if tag.sticky:
-                                raise ValidationError("Tag %s is sticky, don't put it under optional tags!" % t)
+                                raise ValidationError("Tag \"%s\" is sticky, don't put it under optional tags!" % t)
                     except Tag.DoesNotExist:
                         pass
                     tags.append(t)
