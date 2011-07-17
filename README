@@ -35,3 +35,10 @@ DATABASES = {
 
 Production server has some additional configuration, but dev server will run just fine without it, any changes
 that is needed to be updated in dev environment will be placed here.
+
+Todo List:
+- Ability to list sticky tags on the side of the front page
+- Showing recent replied threads on the front page
+- Ability to lock a thread
+- Ability to make a thread sticky
+- Ability to make a any post in a thread un-repliable (cases like current GDI's Job thread)
