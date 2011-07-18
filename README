@@ -40,4 +40,4 @@ Todo List:
 - Ability to lock a thread
 - Ability to make a thread sticky
 - Ability to make a any post in a thread un-repliable (cases like current GDI's Job thread)
-
+- Can frontpage somehow use ajax to expand a post, show XX latest replies along with a reply form?
