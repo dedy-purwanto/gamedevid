@@ -1,31 +1,47 @@
 {% load url from future %}
+
+<table width='100%'>
+<thead>
+    <tr>
+        <th align='left'>Post</th>
+        <th>Forum</th>
+        <th>Author</th>
+        <th>Replies</th>
+        <th>Last Replied</th>
+    </tr>
+</thead>
+<tbody>
 {% for p in posts_latests %}
+    <tr>
+        <td width='50%'>
+            {% if not request.user in p.get_readers %}
+            <b>
+            {% endif %}
+            <a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>{{p.title}}</a>
+            {% if not request.user in p.get_readers %}
+            </b>
+            {% endif %}
+        </td>
+        <td align='center'>
+            {% if p.tags %}
+            {% if p.sticky_tags %}
+                {% for t in p.sticky_tags %}
+                    <span class='post_tag_item_sticky'>{{t.tag}}</span>
+                {% endfor %}
+            {% endif %}
+            {% endif %}
+        </td>
+        <td align='center'>{{p.author}}</td>
+        <td align='center'>{{p.get_replies.count}}</td>
+        <td>
+            {% if p.get_replies.count > 0 %}
+                {{p.get_last_reply.author}} on {{p.get_last_reply.date_created}}
+            {% endif %}
 
-{% if not request.user in p.get_readers %}
-<b>
-{% endif %}
-<a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>{{p.title}}</a>
-{% if not request.user in p.get_readers %}
-</b>
-{% endif %}
-
-by <span class='post_author'>{{p.author}}</span> 
-on <span class='post_date'>{{p.date_created}}</span><br />
-Replies: {{p.get_replies.count}} 
-Views: 0 {{p.get_views.count}}
-{% if p.get_replies.count > 0 %}
-    <br />Last Reply: {{p.get_last_reply.author}}
-{% endif %}
-{% if p.tags %}
-    <br />
-    {% if p.sticky_tags %}
-        {% for t in p.sticky_tags %}
-            <span class='post_tag_item_sticky'>{{t.tag}}</span>
-        {% endfor %}
-    {% endif %}
-    {% for t in p.optional_tags %}
-        <span class='post_tag_item'>{{t}}</span>
-    {% endfor %}
-{% endif %}
-<br /><br />
+        </td>
+    </tr>
 {% endfor %}
+</tbody>
+
+</table>
+

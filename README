@@ -37,10 +37,7 @@ Production server has some additional configuration, but dev server will run jus
 that is needed to be updated in dev environment will be placed here.
 
 Todo List:
-- Ability to easily choose a sticky tag when posting a new thread
-- Ability to list sticky tags on the side of the front page
 - Ability to lock a thread
 - Ability to make a thread sticky
 - Ability to make a any post in a thread un-repliable (cases like current GDI's Job thread)
-- Ability to make nested thread
 
