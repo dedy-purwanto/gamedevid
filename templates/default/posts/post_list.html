@@ -10,7 +10,7 @@
     </tr>
 </thead>
 <tbody>
-{% for p in post_list %}
+{% for p in post_list.object_list %}
     <tr>
         <td width='50%'>
             {% if not request.user in p.get_readers %}
@@ -42,5 +42,14 @@
 {% endfor %}
 </tbody>
 
-</table>
 
+</table>
+<br /><br />
+Jump to: 
+{% for n in post_list.paginator.page_range %}
+    {% if n == post_list.number %}
+        <b>{{n}}</b>
+    {% else %}
+        <a href='?page={{n}}'>{{n}}</a>
+    {% endif %}&nbsp;
+{% endfor %}
