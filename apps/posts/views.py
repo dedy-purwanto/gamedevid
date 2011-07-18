@@ -55,6 +55,7 @@ def edit(request, post_id):
                                 context,
                                 RequestContext(request)
                              )
+
 def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
 

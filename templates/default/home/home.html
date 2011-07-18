@@ -1,4 +1,4 @@
 {% extends "base.html" %}
 {% block content %}
-{% include "posts/post_latest.html" %}
+{% include "posts/post_list.html" with post_list=posts_latests %}
 {% endblock %}

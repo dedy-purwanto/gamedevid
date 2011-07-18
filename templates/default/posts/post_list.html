@@ -10,7 +10,7 @@
     </tr>
 </thead>
 <tbody>
-{% for p in posts_latests %}
+{% for p in post_list %}
     <tr>
         <td width='50%'>
             {% if not request.user in p.get_readers %}
@@ -26,7 +26,7 @@
             {% if p.tags %}
             {% if p.sticky_tags %}
                 {% for t in p.sticky_tags %}
-                    <span class='post_tag_item_sticky'>{{t.tag}}</span>
+                    <a href='{% url 'tags:tag_post_list' tag_id=t.tag.id slug=t.tag.slug %}' class='post_tag_item_sticky'>{{t.tag}}</a>
                 {% endfor %}
             {% endif %}
             {% endif %}

@@ -77,7 +77,8 @@ a{
     background-color:#2C2C2C;
 
 }
-.post_tag_item_sticky{
+.post_tag_item_sticky,
+.post_tag_item_sticky:visited{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -93,8 +94,13 @@ a{
     font-weight:700;
     color:#ffffff;
     font-size:10px;
-    
+    text-decoration:none;
 }
+.post_tag_item_sticky:hover{
+    background-color:#000000;
+    border-color:#020202;
+}
+
 .post_tag_item{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;

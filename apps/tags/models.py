@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template import defaultfilters
 from mptt.models import MPTTModel, TreeForeignKey
 from posts.models import Post
 
@@ -11,6 +12,9 @@ class Tag(MPTTModel):
     parent = TreeForeignKey('self', null = True, blank= True, related_name='children')
     def __unicode__(self):
         return self.name
+    @property
+    def slug(self):
+        return defaultfilters.slugify(self.name)
     #Ensure the uniqueness manually, since I can't mange to migrate in production server
     #by using unique attribute
     def save(self, *args, **kwargs):
