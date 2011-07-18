@@ -1,4 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-{% include "posts/post_latest.html" %}
+<table width='100%'>
+<tbody>
+    <tr>
+        <td valign='top'>
+            {% include "posts/post_latest.html" %}
+        </td>
+        <td valign='top' width='25%'>
+        </td>
+    </tr>
+</tbody>
+</table>
 {% endblock %}

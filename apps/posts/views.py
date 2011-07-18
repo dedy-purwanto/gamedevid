@@ -4,7 +4,6 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
-from datetime import datetime 
 from .models import Post, PostReader
 from .forms import PostForm
 from tags.forms import TagForm
@@ -18,17 +17,6 @@ def new(request, parent_id = None):
     tag_form = TagForm(request.POST or None) if parent is None else None
     if (parent is not None and form.is_valid()) or (parent is None and form.is_valid() and tag_form.is_valid()):
         post = form.save()
-
-        if parent is None:
-            #We don't need to add PostReader since this is a new thread
-            post.date_sorted = datetime.now()
-            post.save()
-        else:
-            #Remove all the PostReader related to this parent
-            PostReader.clear(post = parent)
-            parent.date_sorted = datetime.now()
-            parent.save()
-
         if parent is None:
             tag_form.post = post
             tag_form.save()

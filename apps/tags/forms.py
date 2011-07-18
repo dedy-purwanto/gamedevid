@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ValidationError
 from django.contrib.auth.models import User
-
+from mptt import forms as mptt_forms
 from .models import Tag, TagPost
 
 class TagForm(forms.Form):
@@ -13,7 +13,7 @@ class TagForm(forms.Form):
             self.post = kwargs.pop('post')
             
             if self.post.sticky_tags:
-                tag_sticky_initial = self.post.sticky_tags[0]
+                tag_sticky_initial = Tag.objects.get(name = self.post.sticky_tags[0])
             else:
                 tag_sticky_initial = ""
 
@@ -24,14 +24,15 @@ class TagForm(forms.Form):
 
         super(TagForm, self).__init__(*args, **kwargs)
         
-        self.fields['tag_sticky'] = forms.CharField(max_length = 255, initial = tag_sticky_initial)
+        #self.fields['tag_sticky'] = forms.CharField(max_length = 255, initial = tag_sticky_initial)
+        self.fields['tag_sticky'] = mptt_forms.TreeNodeChoiceField(queryset=Tag.tree.filter(sticky = True), level_indicator=u'--', initial = tag_sticky_initial)
         self.fields['tag_optional'] = forms.CharField(max_length = 500, required = False, initial = tag_optional_initial)
         self.tags = None
     def clean_tag_sticky(self, *args, **kwargs):
         #Check if tag_sticky exists in our sticky tags, if not, raise an error
         tag_sticky = self.data['tag_sticky']        
         try:
-            tag = Tag.objects.get(name = tag_sticky, sticky = True)
+            tag = Tag.objects.get(pk = tag_sticky, sticky = True)
         except Tag.DoesNotExist:
             raise ValidationError("Tag %s is not in the sticky tag list masbro" % tag_sticky)
     def clean_tag_optional(self, *args, **kwargs):
@@ -66,7 +67,7 @@ class TagForm(forms.Form):
             tp.delete()
 
         #Save this the tag and the post to TagPost
-        tag_sticky = self.data['tag_sticky']
+        tag_sticky = Tag.objects.get(pk = self.data['tag_sticky']).name
         self.tags = [tag_sticky] + self.tags
         #Remove duplicates from tag list
         self.tags = list(set(self.tags))
