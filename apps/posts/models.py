@@ -9,6 +9,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, related_name = "post")
     date_created = models.DateTimeField(auto_now_add = True)
     parent = models.ForeignKey("self", related_name = "post_parent", blank = True, null = True)
+    date_sorted = models.DateTimeField(blank = True, null = True) #Filled only for parent thread, for sorting purpose (need improvement later)
     def __unicode__(self):
         return self.title
     @property
@@ -23,7 +24,7 @@ class Post(models.Model):
         return tags if len(tags) > 0 else None
     @staticmethod
     def get_latests():
-        return Post.objects.filter(parent = None).order_by('-id')
+        return Post.objects.filter(parent = None).order_by('-date_sorted')
     def get_replies(self):
         return Post.objects.filter(parent = self).order_by('id')
     def get_last_reply(self):
