@@ -5,7 +5,6 @@
     <tr>
         <th align='left'>Post</th>
         <th>Forum</th>
-        <th>Author</th>
         <th>Replies</th>
         <th>Last Replied</th>
     </tr>
@@ -21,8 +20,9 @@
             {% if not request.user in p.get_readers %}
             </b>
             {% endif %}
+            by {{p.author}}
         </td>
-        <td align='center'>
+        <td align='center' width='25%'>
             {% if p.tags %}
             {% if p.sticky_tags %}
                 {% for t in p.sticky_tags %}
@@ -31,7 +31,6 @@
             {% endif %}
             {% endif %}
         </td>
-        <td align='center'>{{p.author}}</td>
         <td align='center'>{{p.get_replies.count}}</td>
         <td>
             {% if p.get_replies.count > 0 %}
