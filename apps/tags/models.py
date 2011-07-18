@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from mptt.models import MPTTModel, TreeForeignKey
 from posts.models import Post
 
-class Tag(models.Model):
+class Tag(MPTTModel):
     name = models.TextField()
     description = models.TextField(blank = True, null = True)
     sticky = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add = True)
+    parent = TreeForeignKey('self', null = True, blank= True, related_name='children')
     def __unicode__(self):
         return self.name
     #Ensure the uniqueness manually, since I can't mange to migrate in production server
@@ -18,6 +19,9 @@ class Tag(models.Model):
             if tags.count() > 0:
                 return False
         super(Tag, self).save(*args, **kwargs)
+    class MPTTMeta:
+        level_attr = 'mptt_level'
+        order_insertion_by=['name']
     class Meta:
         db_table = u'tag'
 class TagPost(models.Model):

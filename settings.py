@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'compressor',
     'sentry',
     'sentry.client',
+    'mptt',
 
     # Site Apps
     'users',

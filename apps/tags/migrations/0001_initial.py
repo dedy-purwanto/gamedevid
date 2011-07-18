@@ -12,16 +12,22 @@ class Migration(SchemaMigration):
         db.create_table(u'tag', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.TextField')()),
+            ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('sticky', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('date_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('parent', self.gf('mptt.fields.TreeForeignKey')(blank=True, related_name='children', null=True, to=orm['tags.Tag'])),
+            ('lft', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
+            ('rght', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
+            ('tree_id', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
+            ('mptt_level', self.gf('django.db.models.fields.PositiveIntegerField')(db_index=True)),
         ))
         db.send_create_signal('tags', ['Tag'])
 
         # Adding model 'TagPost'
         db.create_table(u'tag_post', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('tag', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tagpost_tag', to=orm['tags.Tag'])),
-            ('post', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tagpost_post', to=orm['posts.Post'])),
+            ('tag', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tagpost', to=orm['tags.Tag'])),
+            ('post', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tags', to=orm['posts.Post'])),
         ))
         db.send_create_signal('tags', ['TagPost'])
 
@@ -77,6 +83,7 @@ class Migration(SchemaMigration):
             'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'post'", 'to': "orm['auth.User']"}),
             'content': ('django.db.models.fields.TextField', [], {}),
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'date_sorted': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'post_parent'", 'null': 'True', 'to': "orm['posts.Post']"}),
             'title': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'})
@@ -84,15 +91,21 @@ class Migration(SchemaMigration):
         'tags.tag': {
             'Meta': {'object_name': 'Tag', 'db_table': "u'tag'"},
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
+            'mptt_level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'name': ('django.db.models.fields.TextField', [], {}),
-            'sticky': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+            'parent': ('mptt.fields.TreeForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['tags.Tag']"}),
+            'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
+            'sticky': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         },
         'tags.tagpost': {
             'Meta': {'object_name': 'TagPost', 'db_table': "u'tag_post'"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tagpost_post'", 'to': "orm['posts.Post']"}),
-            'tag': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tagpost_tag'", 'to': "orm['tags.Tag']"})
+            'post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tags'", 'to': "orm['posts.Post']"}),
+            'tag': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tagpost'", 'to': "orm['tags.Tag']"})
         }
     }
 
