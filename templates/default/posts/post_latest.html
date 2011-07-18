@@ -19,7 +19,7 @@
             <a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>{{p.title}}</a>
             {% if not request.user in p.get_readers %}
             </b>
-            {% endif %}
+            {% endif %}<br />
             by {{p.author}}
         </td>
         <td align='center' width='25%'>
