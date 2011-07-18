@@ -65,6 +65,9 @@ class PostForm(forms.ModelForm):
         post = super(PostForm, self).save(commit = False)
         if post.parent is None:
             post.date_sorted = datetime.now()
+        else:
+            post.parent.date_sorted = datetime.now()
+            post.parent.save()
         if not self.instance.pk:
             post.author = self.author
         post.save()
