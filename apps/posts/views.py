@@ -20,6 +20,11 @@ def new(request, parent_id = None):
         if parent is None:
             tag_form.post = post
             tag_form.save()
+        
+        if parent is None:
+            PostReader.clear(post = post)
+        else:
+            PostReader.clear(post = post.parent)
 
         r_post = post if not parent else parent
         return redirect(reverse("posts:view", args=[r_post.id, r_post.title_slug()])) 
