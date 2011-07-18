@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ValidationError
+from datetime import datetime 
 from django.contrib.auth.models import User
 from models import Post
 
@@ -62,6 +63,8 @@ class PostForm(forms.ModelForm):
         return is_valid
     def save(self):
         post = super(PostForm, self).save(commit = False)
+        if post.parent is None:
+            post.date_sorted = datetime.now()
         if not self.instance.pk:
             post.author = self.author
         post.save()
