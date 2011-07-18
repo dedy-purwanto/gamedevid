@@ -1,6 +1,14 @@
 {% load url from future %}
 {% for p in posts_latests %}
-<b><a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>{{p.title}}</a></b>
+
+{% if not request.user in p.get_readers %}
+<b>
+{% endif %}
+<a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>{{p.title}}</a>
+{% if not request.user in p.get_readers %}
+</b>
+{% endif %}
+
 by <span class='post_author'>{{p.author}}</span> 
 on <span class='post_date'>{{p.date_created}}</span><br />
 Replies: {{p.get_replies.count}} 

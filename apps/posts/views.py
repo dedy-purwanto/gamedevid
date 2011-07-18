@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from datetime import datetime 
-from .models import Post
+from .models import Post, PostReader
 from .forms import PostForm
 from tags.forms import TagForm
 
@@ -20,9 +20,12 @@ def new(request, parent_id = None):
         post = form.save()
 
         if parent is None:
+            #We don't need to add PostReader since this is a new thread
             post.date_sorted = datetime.now()
             post.save()
         else:
+            #Remove all the PostReader related to this parent
+            PostReader.clear(post = parent)
             parent.date_sorted = datetime.now()
             parent.save()
 
@@ -66,6 +69,10 @@ def edit(request, post_id):
                              )
 def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
+
+    if request.user.is_authenticated:
+        PostReader.add(user = request.user, post = post if post.parent is not None else post)
+
     context = {
                 'post' : post,
               }

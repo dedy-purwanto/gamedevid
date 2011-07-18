@@ -31,5 +31,40 @@ class Post(models.Model):
         return self.get_replies().all().order_by('-id').latest('id')
     def title_slug(self):
         return defaultfilters.slugify(self.title)
+    def get_readers(self):
+        return [r.user for r in self.reader.all()]
     class Meta:
         db_table = u'post'
+
+
+"""
+Ability to show unread posts to some particular users.
+
+Everytime a new posts/reply has been made, we remove all entry of that post in this table
+That simply means, nobody has read it. When a particular user open that post, we added
+that user along with the post that he opened, that means that user has read it. When
+another user makes a reply in that post, remove entry of that post again.
+
+We only store the parent of the post. that means, reply will not be stored, instead, it's
+parent will be stored.
+"""
+
+class PostReader(models.Model):
+    user = models.ForeignKey(User, related_name = 'reader')
+    post = models.ForeignKey(Post, related_name = 'reader')
+    date_created = models.DateTimeField(auto_now_add = True)
+    @staticmethod
+    def clear(post):
+        readers = PostReader.objects.filter(post = post)
+        for r in readers:
+            r.delete()
+    @staticmethod
+    def add(user, post):
+        try:
+            reader = PostReader.objects.get(user = user, post = post)
+        except PostReader.DoesNotExist:
+            reader = PostReader(user = user, post = post)
+            reader.save()
+        return reader
+    class Meta:
+        db_table = u'post_reader'
