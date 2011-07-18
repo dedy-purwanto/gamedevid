@@ -5,6 +5,7 @@ from posts.models import Post
 
 class Tag(models.Model):
     name = models.TextField()
+    description = models.TextField(blank = True, null = True)
     sticky = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add = True)
     def __unicode__(self):
