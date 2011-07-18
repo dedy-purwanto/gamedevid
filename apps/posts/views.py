@@ -59,7 +59,7 @@ def edit(request, post_id):
 def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated():
         PostReader.add(user = request.user, post = post if post.parent is not None else post)
 
     context = {
