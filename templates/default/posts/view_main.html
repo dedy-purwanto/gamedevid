@@ -13,7 +13,7 @@
         {% endif %}
        
         {% for t in p.optional_tags %}
-            <a href='{% url 'tags:tag_post_list' tag_id=t.tag.id slug=t.tag.slug %}' class='post_tag_item'>{{t}}</a>
+            <a href='{% url 'tags:tag_post_list' tag_id=t.id slug=t.slug %}' class='post_tag_item'>{{t}}</a>
         {% endfor %}
     {% endif %}
     {% endwith %}
