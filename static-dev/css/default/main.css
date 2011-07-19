@@ -101,7 +101,8 @@ a{
     border-color:#020202;
 }
 
-.post_tag_item{
+.post_tag_item,
+.post_tag_item:visited{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
@@ -117,4 +118,8 @@ a{
     font-weight:400;
     color:#ffffff;
     font-size:10px;
+}
+.post_tag_item:hover{
+    background-color:#000000;
+    border-color:#020202;
 }
