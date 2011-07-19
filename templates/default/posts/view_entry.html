@@ -5,6 +5,7 @@
     <small>{{p.date_created}}</small>
 </div>
 <div>
+<br /><br />
 {{p.content|safe}}
 {# allow edit for both author and admin #}
 {% if p.author == request.user or request.user.is_staff or request.user.is_superuser %}
