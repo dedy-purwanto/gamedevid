@@ -8,12 +8,12 @@
         <br />
         {% if p.sticky_tags %}
             {% for t in p.sticky_tags %}
-                <span class='post_tag_item_sticky'>{{t.tag}}</span>
+                <a href='{% url 'tags:tag_post_list' tag_id=t.tag.id slug=t.tag.slug %}' class='post_tag_item_sticky'>{{t.tag}}</a>
             {% endfor %}
         {% endif %}
        
         {% for t in p.optional_tags %}
-            <span class='post_tag_item'>{{t}}</span>
+            <a href='{% url 'tags:tag_post_list' tag_id=t.tag.id slug=t.tag.slug %}' class='post_tag_item'>{{t}}</a>
         {% endfor %}
     {% endif %}
     {% endwith %}
