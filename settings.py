@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'sentry',
     'sentry.client',
     'mptt',
+    'tinymce',
 
     # Site Apps
     'users',
@@ -135,6 +136,28 @@ LOGGING = {
     }
 }
 LOGIN_URL = '/users/login/'
+
+
+# TinyMCE
+TINYMCE_DEFAULT_CONFIG = {
+    'mode' : "textareas",
+    'theme' : "advanced",
+    'plugins' : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,nonbreaking,xhtmlxtras,template",
+
+    #// Theme options
+    'theme_advanced_buttons1' : "bold,italic,underline,strikethrough,fontsizeselect,|,justifyleft,justifycenter,justifyright,justifyfull,|fontsizeselect,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchorcode,|,`insertdate,inserttime,preview,|,forecolor,backcolor",
+    'theme_advanced_buttons2' : "",
+    'theme_advanced_buttons3' : "",
+    'theme_advanced_toolbar_location' : "top",
+    'theme_advanced_toolbar_align' : "left",
+    'theme_advanced_resizing' : 'true',
+
+    #// Skin options
+    'skin' : "o2k7",
+    'skin_variant' : "black",  
+    'content_css' : "/static/css/default/tinymce.css",
+}
+
 try:
     from settings_local import *
 except ImportError:

@@ -1,16 +1,40 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% block content %}
-<form method='post' action=''>
+{{form.media}}
+<script>
+$(function(){
+    var sampleTags = [
+        {% for t in tag_form.tag_optional_list %}
+            '{{t}}',
+        {% endfor %}
+    ];
+    $("#id_title").attr('class','ui-text');
+    $("#id_tag_sticky").attr('style','width:250px'); 
+    $("#id_tag_sticky").chosen(); 
+    $("#id_tag_optional").tagit({
+        availableTags: sampleTags,
+    });
+});
+</script>
+
+<form method='post' action='' class='ui-form'>
 {{form.errors}}
 {{tag_form.errors}}
 {% if form.title %}
-    {{tag_form.tag_sticky}}
-    {{form.title}}<br />
+    <table>
+        <tbody>
+            <tr>
+            <td width='200'>{{tag_form.tag_sticky}}</td>
+            <td>{{form.title}}</td>
+            </tr>
+        </tbody>
+    </table>
 {% endif %}
-Content : <br />{{form.content}}<br />
-Optional Tags (Comma Separated) : {{tag_form.tag_optional}}<br />
+{{form.content}}<br />
+Optional Tags: {{tag_form.tag_optional}}<br />
 {% csrf_token %}
 <button type='submit'>Post</button>
 </form>
+
 {% endblock %}

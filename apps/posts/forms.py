@@ -2,10 +2,13 @@ from django import forms
 from django.forms import ValidationError
 from datetime import datetime 
 from django.contrib.auth.models import User
+from tinymce.widgets import TinyMCE
+
 from models import Post
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(required = True)
+    content = forms.CharField(widget=TinyMCE(attrs={'cols':80, 'rows':20}))
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author')
         parent = None

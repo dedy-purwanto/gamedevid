@@ -27,6 +27,8 @@ class TagForm(forms.Form):
         #self.fields['tag_sticky'] = forms.CharField(max_length = 255, initial = tag_sticky_initial)
         self.fields['tag_sticky'] = mptt_forms.TreeNodeChoiceField(queryset=Tag.tree.filter(sticky = True), level_indicator=u'--', initial = tag_sticky_initial)
         self.fields['tag_optional'] = forms.CharField(max_length = 500, required = False, initial = tag_optional_initial)
+
+        self.tag_optional_list = Tag.objects.filter(sticky = False)
         self.tags = None
     def clean_tag_sticky(self, *args, **kwargs):
         #Check if tag_sticky exists in our sticky tags, if not, raise an error

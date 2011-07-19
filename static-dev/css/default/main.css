@@ -124,3 +124,39 @@ a{
     background-color:#000000;
     border-color:#020202;
 }
+
+.active-result{
+    color:#000000;
+}
+.result-selected{
+    color:#000000;
+}
+.ui-text{
+	padding: 6px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #5f6566;
+	outline: none;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset, 0 1px 0 rgba(255,255,255,0.2);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset, 0 1px 0 rgba(255,255,255,0.2);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset, 0 1px 0 rgba(255,255,255,0.2);
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25 ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    background-color:#191919;
+    color:#ffeecc;
+    width:300px;
+}
+.ui-text:hover{
+	border: 1px solid #bdbdbd;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2) inset, 0 1px 0 rgba(255,255,255,0.2);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.2) inset, 0 1px 0 rgba(255,255,255,0.2);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2) inset, 0 1px 0 rgba(255,255,255,0.2);
+}
+.ui-text:focus{
+	border: 1px solid #95bdd4;
+	-webkit-box-shadow: 0 2px 3px rgba(161,202,226,0.5) inset, 0 1px 0 rgba(255,255,255,0.2);
+	-moz-box-shadow: 0 2px 3px rgba(161,202,226,0.5) inset, 0 1px 0 rgba(255,255,255,0.2);
+	box-shadow: 0 2px 3px rgba(161,202,226,0.5) inset, 0 1px 0 rgba(255,255,255,0.2);
+}

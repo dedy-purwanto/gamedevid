@@ -8,12 +8,15 @@
     {# Web Fonts Impot #}
     <link href='http://fonts.googleapis.com/css?family=Play:700&v2' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Varela&v2' rel='stylesheet' type='text/css'>
-
-
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
     {# Global CSS Files #}
     <link type="text/css" href="{{ STATIC_URL }}css/default/main.css" rel="Stylesheet" />
-    {# Global JS Files #}
+    <link type="text/css" href="{{ STATIC_URL }}css/default/chosen.css" rel="Stylesheet" />
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/dot-luv/jquery-ui.css">
 
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/default/tagit/jquery.tagit.css">
     <title>Gamedevid</title>
     
     {% block css-local %}{% endblock %}
@@ -39,6 +42,9 @@
             </div>
         </div>
         {% block js-local %}{% endblock %}
+        {# Global JS Files #}
+        <script src="/static/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/static/js/chosen.jquery.js"></script>
     </body>
 </html>
 {% endspaceless %}
