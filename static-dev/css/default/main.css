@@ -118,6 +118,7 @@ a{
     font-weight:400;
     color:#ffffff;
     font-size:10px;
+    text-decoration:none;
 }
 .post_tag_item:hover{
     background-color:#000000;
