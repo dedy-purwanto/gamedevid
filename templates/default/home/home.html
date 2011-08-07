@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<iframe src="http://gdishoutbox.appspot.com" style="width:100%;height:280px;border:none;">The browser doesn't support for iframe!</iframe>
-{% include "posts/post_list.html" with post_list=posts_latests %}
+<table width='100%'>
+    <tbody>
+    <tr>
+        <td class='column left'>
+            {% include "tags/brief_list.html" %}
+        </td>
+        <td class='column center'>
+            <iframe src="http://gdishoutbox.appspot.com" style="width:100%;height:280px;border:none;">The browser doesn't support for iframe!</iframe>
+            {% include "posts/post_list.html" with post_list=posts_latests %}
+        </td>
+        <td class='column right'>
+            <div class='column header'>
+                GDI v2 Beta
+            </div>
+            Selamat datang di GDIv2 Beta. Silahkan daftar dan.... ah sudahlah.. pokoknya daftar dan bikin post sebanyak2nya!.
+        </td>
+    </tr>
+
+    </tbody>
+</table>
 {% endblock %}

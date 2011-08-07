@@ -1,11 +1,15 @@
+{% load url from future %}
 {% load mptt_tags %}
-<ul class="root">
+<ul class="tag_root">
+    <div class='column header'>
+        Forums
+    </div>
     {% recursetree tag_list %}
         {% if node.sticky %}
         <li>
-            {{ node.name }}
+            <div class='child'>- <a href='{% url 'tags:tag_post_list' tag_id=node.id slug=node.slug %}'>{{ node.name }}</a></div>
             {% if not node.is_leaf_node %}
-                <ul class="children">
+                <ul class="tag_child">
                     {{ children }}
                 </ul>
             {% endif %}

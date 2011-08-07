@@ -9,7 +9,7 @@ a{
     color:#ECB912;
 }
 #global_container{
-    max-width:900px;
+    max-width:90%;
     background-color:#444444;
     border-width:1px;
     border-style:solid;
@@ -20,6 +20,9 @@ a{
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     border-radius:3px;
+}
+#header{
+    padding-bottom:5px;
 }
 #header #header_text{
     font-family: 'Play', sans-serif;
@@ -159,4 +162,68 @@ a{
 	-webkit-box-shadow: 0 2px 3px rgba(161,202,226,0.5) inset, 0 1px 0 rgba(255,255,255,0.2);
 	-moz-box-shadow: 0 2px 3px rgba(161,202,226,0.5) inset, 0 1px 0 rgba(255,255,255,0.2);
 	box-shadow: 0 2px 3px rgba(161,202,226,0.5) inset, 0 1px 0 rgba(255,255,255,0.2);
+}
+#content{
+    float:left;
+    width:100%;
+    display:block;
+}
+.column{
+    text-align:left;
+    vertical-align:top;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    padding:5px;
+    margin:5px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#5A5A5A;
+    background-color:#3F3F3F;
+    
+}
+.left{
+    width:200px;
+}
+.center{
+    border:none;
+}
+.right{
+    width:200px;
+}
+.tag_root{
+    margin:0px;
+}
+.tag_root a{
+    text-decoration:none;
+    font-weight:bold;
+}
+.tag_root, .tag_child{
+    padding-top:3px;
+    padding-bottom:3px;
+    list-style-type:none;
+}
+.tag_root{
+    padding-left:0px;
+}
+.tag_root ul{
+    padding-left:10px;
+    border-left:1px dotted #ffeecc;
+}
+
+.column .header{
+    display:block;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    padding:5px;
+    margin:-6px;
+    margin-top:-9px;
+    margin-bottom:8px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#5A5A5A;
+    background-color:#333333;
+    font-weight:bold;
+
 }
