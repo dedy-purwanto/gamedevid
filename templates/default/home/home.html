@@ -19,6 +19,7 @@
         {% endfor %}
     }
 </script>
+{% if latest_games %}
 <div class='showcase_container'>
 <div id='showcase_content'>
 <table width='100%'>
@@ -48,7 +49,7 @@
     {% endfor %}
 </div>
 </div>
-
+{% endif %}
 <table width='100%' cellspacing='0' cellpading='0' style='margin:0px;padding:0px'>
     <tbody>
         <tr>

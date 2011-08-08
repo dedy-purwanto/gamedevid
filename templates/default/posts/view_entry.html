@@ -12,6 +12,29 @@
 </div>
 {% endif %}
 
+{% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_GAME_ID %}
+<div class='random_image_container'>
+<table width='100%'>
+    <tbody>
+        <tr>
+            <td style='width:300px;'>
+                <img src='{{MEDIA_URL}}/{{post.game.all.0.image}}' />
+            </td>
+            <td align='left' valign='top'>
+                Developer : {{p.game.all.0.developer}} <br />   
+                Platform : {{p.game.all.0.platform_join}}    <br />
+                Genre : {{p.game.all.0.genre_join}}    <br />
+                {% if p.game.all.0.download_url %}<br />
+                Download : <a href='p.game.all.0.download_url'>{{p.game.all.0.download_url}}</a>    
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+{% endif %}
+
+
 {{p.content|safe}}
 {# allow edit for both author and admin #}
 {% if p.author == request.user or request.user.is_staff or request.user.is_superuser %}

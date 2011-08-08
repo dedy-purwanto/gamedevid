@@ -24,7 +24,9 @@ class Migration(SchemaMigration):
 
         # Adding model 'Game'
         db.create_table('games_game', (
-            ('image_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['images.Image'], unique=True, primary_key=True)),
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
+            ('post', self.gf('django.db.models.fields.related.ForeignKey')(related_name='game', to=orm['posts.Post'])),
             ('download_url', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
             ('developer', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('release_date', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
@@ -104,12 +106,14 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'games.game': {
-            'Meta': {'object_name': 'Game', '_ormbases': ['images.Image']},
+            'Meta': {'object_name': 'Game'},
             'developer': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'download_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
             'genre': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['games.Genre']", 'symmetrical': 'False'}),
-            'image_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['images.Image']", 'unique': 'True', 'primary_key': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'platform': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['games.Platform']", 'symmetrical': 'False'}),
+            'post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'game'", 'to': "orm['posts.Post']"}),
             'release_date': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'})
         },
         'games.genre': {
@@ -121,12 +125,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Platform'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'platform': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        'images.image': {
-            'Meta': {'object_name': 'Image'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'post': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'image'", 'to': "orm['posts.Post']"})
         },
         'posts.post': {
             'Meta': {'object_name': 'Post', 'db_table': "u'post'"},

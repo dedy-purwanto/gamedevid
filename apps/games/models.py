@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from images.models import Image
-
+from posts.models import Post
 class Genre(models.Model):
     genre = models.CharField(max_length = 255)
     def __unicode__(self):
@@ -12,7 +11,9 @@ class Platform(models.Model):
     def __unicode__(self):
         return self.platform
 
-class Game(Image):
+class Game(models.Model):
+    image = models.ImageField(blank= False, null = False, upload_to = 'uploaded_images')
+    post = models.ForeignKey(Post, null = False, blank=False, related_name = 'game')
     download_url = models.URLField(blank = True)
     developer = models.CharField(blank = True, max_length = 255)
     release_date = models.CharField(blank = True, max_length = 255)

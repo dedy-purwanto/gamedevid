@@ -12,6 +12,8 @@ class Post(models.Model):
     date_sorted = models.DateTimeField(blank = True, null = True) #Filled only for parent thread, for sorting purpose (need improvement later)
     def __unicode__(self):
         return self.title
+
+        
     @property
     def content_short(self):
         if len(self.content) < 255:
