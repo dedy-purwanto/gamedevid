@@ -6,7 +6,7 @@ BODY{
     font-weight:400;
     padding:0px;
     margin:0px;
-    height:100%;
+    overflow:scroll;
 }
 a{
     color:#ECB912;
