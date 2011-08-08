@@ -24,7 +24,6 @@ def home(request):
 
     context = {
                 'posts_latests' : posts,
-                'tag_list' : Tag.tree.all()
               }
 
     return render_to_response(

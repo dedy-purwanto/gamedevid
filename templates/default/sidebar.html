@@ -1,0 +1,31 @@
+{% load url from future %}
+<div class='column'>
+<div class='column_header'>Beginner's Guides</div>
+...
+</div>
+
+<div class='column'>
+<div class='column_header'>Careers</div>
+...
+</div>
+
+<div class='column'>
+    <div class='column_header'>Recent Threads</div>
+    {% for p in global_latest_posts %}
+        <a class='recent_threads_item' href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>
+            {% if not request.user in p.get_readers %}
+            <b>
+            {% endif %}
+            {{p.title}}
+            {% if not request.user in p.get_readers %}
+            </b>
+            {% endif %}
+            <span class='info'>({{p.get_replies.count}}) {{p.get_last_reply.author}}</span>
+        </a>
+    {% endfor %}
+</div>
+
+<div class='column'>
+<div class='column_header'>Forums</div>
+{% include "tags/brief_list.html" %}
+</div>

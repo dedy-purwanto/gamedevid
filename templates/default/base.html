@@ -32,7 +32,19 @@
             </div>
             
             <div id='content'>
-                {% block content %}{% endblock %}
+                <table width='100%'>
+                    <tbody>
+                        <tr>
+                            <td style='vertical-align:top'>
+                                {% block content %}{% endblock %}
+                            </td>
+                            <td style='width:280px;vertical-align:top'>
+                                {% include "sidebar.html" %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
             </div>
             <div id='footer'>
                 <p align='center'>
