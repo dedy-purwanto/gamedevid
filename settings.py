@@ -92,6 +92,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'cores.context_processors.global_settings',
     'posts.context_processors.fetch_latest_posts',
+    'images.context_processors.fetch_random_image',
     'tags.context_processors.list_sticky_tags',
 )
 
@@ -121,6 +122,7 @@ INSTALLED_APPS = (
     'posts',
     'tags',
     'images',
+    'games',
 
 )
 

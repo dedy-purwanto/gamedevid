@@ -7,6 +7,7 @@ from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from .models import Post, PostReader
 from images.forms import ImageForm
+from games.forms import GameForm
 from .forms import PostForm
 from tags.forms import TagForm
 
@@ -24,6 +25,7 @@ def new(request, parent_id = None):
     )
 
     image_form = ImageForm(request.POST or None, request.FILES or None)
+    game_form = GameForm(request.POST or None, request.FILES or None)
 
     tag_form = TagForm(request.POST or None) if parent is None else None
 
@@ -41,6 +43,10 @@ def new(request, parent_id = None):
     if request.GET.get('image',False):
         valid = (parent is None and form.is_valid() and tag_form.is_valid() and image_form.is_valid())
 
+    #a game post:
+    if request.GET.get('game',False):
+        valid = (parent is None and form.is_valid() and tag_form.is_valid() and game_form.is_valid())
+
     if valid:       
         post = form.save()
         if parent is None:
@@ -55,12 +61,17 @@ def new(request, parent_id = None):
         if image_form.is_valid():
             image_form.save(post = post)
         
+        if game_form.is_valid():
+            game_form.save(post = post)
+            game_form.save_m2m()
+
         r_post = post if not parent else parent
         return redirect(reverse("posts:view", args=[r_post.id, r_post.title_slug()])) 
     context = {
                 'form' : form,
                 'tag_form' : tag_form,
                 'image_form' : image_form,
+                'game_form' : game_form,
               }
 
     return render_to_response(
