@@ -3,7 +3,6 @@ from django.forms import ValidationError
 from datetime import datetime 
 from django.contrib.auth.models import User
 from tinymce.widgets import TinyMCE
-
 from models import Post
 
 class PostForm(forms.ModelForm):
@@ -14,6 +13,7 @@ class PostForm(forms.ModelForm):
         parent = None
         if 'parent' in kwargs:
             parent = kwargs.pop('parent')
+
         super(PostForm, self).__init__(*args, **kwargs)
         
         is_reply = False
@@ -65,6 +65,8 @@ class PostForm(forms.ModelForm):
             pass
         return is_valid
     def save(self):
+        
+
         post = super(PostForm, self).save(commit = False)
         if post.parent is None:
             post.date_sorted = datetime.now()
@@ -73,6 +75,7 @@ class PostForm(forms.ModelForm):
             post.parent.save()
         if not self.instance.pk:
             post.author = self.author
+        
         post.save()
         return post
     class Meta:

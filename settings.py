@@ -40,7 +40,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-MEDIA_ROOT = ''
+MEDIA_ROOT = PROJECT_PATH + '/media/'
 
 MEDIA_URL = ''
 
@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'sentry.client.middleware.Sentry404CatchMiddleware',
 )
-
+ 
 ROOT_URLCONF = 'gamedevid.urls'
 
 TEMPLATE_DIRS = (
@@ -90,6 +90,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
+    'cores.context_processors.global_settings',
     'posts.context_processors.fetch_latest_posts',
     'tags.context_processors.list_sticky_tags',
 )
@@ -113,10 +114,12 @@ INSTALLED_APPS = (
     'tinymce',
 
     # Site Apps
+    'cores',
     'users',
     'home',
     'posts',
     'tags',
+    'images',
 
 )
 
@@ -159,6 +162,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'skin_variant' : "black",  
     'content_css' : "/static/css/default/tinymce.css",
 }
+
+TAG_IMAGE_ID = 16
 
 try:
     from settings_local import *

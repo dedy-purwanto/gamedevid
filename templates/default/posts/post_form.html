@@ -18,15 +18,32 @@ $(function(){
 });
 </script>
 
-<form method='post' action='' class='ui-form'>
+<form method='post' action='' class='ui-form' enctype='multipart/form-data'>
 {{form.errors}}
 {{tag_form.errors}}
+{{image_form.errors}}
+{% if request.GET.image %}
+    <h2>Submit Image</h2>
+    You can submit your Work In Progress (WIP) Game, Game Art, or anything related to game development in here. If this is a finished game, please use "Submit a Game" instead.
+    <input type='hidden' name='tag_sticky' value='{{SETTINGS.TAG_IMAGE_ID}}' />
+{% endif %}
+
 {% if form.title %}
     <table>
         <tbody>
             <tr>
+            {% if not request.GET.image and not request.GET.game%}
+            
             <td width='200'>{{tag_form.tag_sticky}}</td>
+            {% endif %}
+            
             <td>{{form.title}}</td>
+            
+            {% if request.GET.image %}
+            <tr>
+                <td style='color:#ffffff'>{{image_form.image}}</td>
+            </tr>
+            {% endif %}
             </tr>
         </tbody>
     </table>
