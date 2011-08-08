@@ -1,4 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-{% include "posts/post_list.html" with post_list=posts_latests %}
+
+<div class='showcase_container'>
+<div id='showcase_content'>
+<table width='100%'>
+    <tbody>
+        <tr>
+            <td valign='top' style='padding:5px;'>
+                <a class='showcase_gametitle'>Tales of Narnia</a>
+Here are your Journal Land entries from the period of 7/29 - 8/5. Featured GDNet+ Journal Entry D Bits - Aldacron talks about structs and classes in D and how they are similar to Java and C++ but at the same time just different enough to possibly cause some confusion if you're transitioning to D from either of those languages. Hopefully this will help to keep you from getting tripped up. Featured Member Journal Entry New Old Things - it's time for Endurion to take his C64 game to the ...
+            </td>
+            <td valign='top' style='width:300px;height:180px;' class='showcase_gamethumbnail'>
+                    PIC 
+            </td>
+        </tr>   
+    </tbody>
+</table>
+</div>
+<div id='showcase_navigator'>
+    {# looping here, "Tales of nar.." #}
+    <a class='showcase_item'>
+        Tales of nar..
+    </a>
+    <a class='showcase_item'>
+        Kate West and th..
+    </a>
+</div>
+</div>
+
+
 {% endblock %}

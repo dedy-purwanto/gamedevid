@@ -6,16 +6,20 @@ BODY{
     font-weight:400;
     padding:0px;
     margin:0px;
+    height:100%;
 }
 a{
     color:#ECB912;
 }
 #global_container{
     max-width:1200px;
-    margin:0px;
-    margin-left:auto;
-    margin-right:auto;
+    margin:auto;
     padding:10px;
+    background-color:#171717;
+    border:1px solid #232323;
+    height:auto !important;
+    height:100%;
+    vertical-align:bottom;
 }
 #header{
     padding-bottom:5px;
@@ -241,4 +245,50 @@ a{
 .recent_threads_item .info{
     color:#ffeecc;
     font-size:10px;
+}
+.showcase_container{
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border-color:#333333;
+    width:100%;
+    background-color:#272727;
+}
+#showcase_content{
+    padding:5px;
+    height:200px;
+}
+.showcase_gametitle{
+    display:block;
+    margin-bottom:10px;
+    font-size:18px;
+    color:#ffde74;
+    text-decoration:none;
+}
+.showcase_gamethumbnail{
+    background-color:#1b1b1b;
+    text-align:center;
+}
+#showcase_navigator{
+    background-color:#313131;
+    float:bottom;
+    height:25px;
+    vertical-align:middle;
+    padding:10px;
+}
+.showcase_item{
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border-color:#272727;
+    background-color:#1b1b1b;
+    color:#ffffff;
+    font-weight:bold;
+    padding:5px;
+    margin-right:5px;
+    cursor:pointer;
+        
+}
+.showcase_item:hover{
+    background-color:#ECB912;  
 }
