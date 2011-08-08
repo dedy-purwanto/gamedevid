@@ -264,7 +264,7 @@ th{
     padding:5px;
     height:200px;
 }
-.showcase_gametitle{
+#showcase_game_title{
     display:block;
     margin-bottom:10px;
     font-size:18px;
@@ -274,6 +274,9 @@ th{
 .showcase_gamethumbnail{
     background-color:#1b1b1b;
     text-align:center;
+    margin-top:auto;
+    margin-bottom:auto;
+    vertical-align:middle;
 }
 #showcase_navigator{
     background-color:#313131;

@@ -13,6 +13,16 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
     @property
+    def content_short(self):
+        if len(self.content) < 255:
+            return self.content
+        return self.content[:255] + "..."
+    @property
+    def title_short(self):
+        if len(self.title) < 20:
+            return self.title
+        return self.title[:20] + "..."
+    @property
     def sticky_tags(self):
         return self.tags.filter(tag__sticky = True)
     @property

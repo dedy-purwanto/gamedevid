@@ -1,30 +1,51 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% load url from future %}
+{% load thumbnail %}
+{% block content %}
+<script>
+    games = {
+        {% for g in latest_games %}
+            'games_{{g.post.id}}' : {
+                'title' : '{{g.post.title}}',
+                'desc' : '{{g.post.content_short|safe}}',
+                'author' : '{{g.post.author}}',
+                'developer' : '{{g.developer}}',
+                'platform' : '{{g.platform_join}}',
+                'genre' : '{{g.genre_join}}',
+                'post_url' : '{% url "posts:view" post_id=g.post.id slug=g.post.title_slug %}',
+                'thumb_url' : '{% thumbnail g.image 300x169 %}',
+            },
+        {% endfor %}
+    }
+</script>
 <div class='showcase_container'>
 <div id='showcase_content'>
 <table width='100%'>
     <tbody>
         <tr>
             <td valign='top' style='padding:5px;'>
-                <a class='showcase_gametitle'>Tales of Narnia</a>
-Here are your Journal Land entries from the period of 7/29 - 8/5. Featured GDNet+ Journal Entry D Bits - Aldacron talks about structs and classes in D and how they are similar to Java and C++ but at the same time just different enough to possibly cause some confusion if you're transitioning to D from either of those languages. Hopefully this will help to keep you from getting tripped up. Featured Member Journal Entry New Old Things - it's time for Endurion to take his C64 game to the ...
+                <a id='showcase_game_title' href='{% url "posts:view" post_id=latest_games.0.post.id slug=latest_games.0.post.title_slug %}'>{{latest_games.0.post.title}}</a>
+                <div id='showcase_game_desc'>{{latest_games.0.post.content_short|safe}}</div>
+                <small>
+                Developer : <span id='showcase_game_developer'>{{latest_games.0.developer}}</span><br />
+                Platform : <span id='showcase_game_platform'>{{latest_games.0.platform_join}}</span><br />
+                Genre: <span id='showcase_game_genre'>{{latest_games.0.genre_join}}</span>
+                </small>
             </td>
             <td valign='top' style='width:300px;height:180px;' class='showcase_gamethumbnail'>
-                    PIC 
+                <img id='showcase_game_thumb' src='{% thumbnail latest_games.0.image 300x169 %}' /> 
             </td>
         </tr>   
     </tbody>
 </table>
 </div>
 <div id='showcase_navigator'>
-    {# looping here, "Tales of nar.." #}
-    <a class='showcase_item'>
-        Tales of nar..
+    {% for g in latest_games %}
+    <a class='showcase_item' post_id='{{g.post.id}}'>
+        {{g.post.title_short}}
     </a>
-    <a class='showcase_item'>
-        Kate West and th..
-    </a>
+    {% endfor %}
 </div>
 </div>
 
@@ -48,6 +69,22 @@ Here are your Journal Land entries from the period of 7/29 - 8/5. Featured GDNet
         </tr>   
     </tbody>
 </table>
+<script>
+    $(function(){
+        $('.showcase_item').click(function(){
+            item = games['games_' + $(this).attr('post_id')];
+            $('#showcase_game_title').html(item['title']);
+            $('#showcase_game_title').attr('href',item['post_url']);
+            $('#showcase_game_desc').html(item['desc']);
+            $('#showcase_game_developer').html(item['developer']);
+            $('#showcase_game_platform').html(item['platform']);
+            $('#showcase_game_genre').html(item['genre']);
+            $('#showcase_game_thumb').attr('src',item['thumb_url']);
 
+        });
+    });
+
+
+</script>
 
 {% endblock %}

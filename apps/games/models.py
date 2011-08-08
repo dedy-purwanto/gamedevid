@@ -18,5 +18,9 @@ class Game(Image):
     release_date = models.CharField(blank = True, max_length = 255)
     genre = models.ManyToManyField(Genre)
     platform = models.ManyToManyField(Platform)
-
-
+    @property
+    def platform_join(self):
+        return ', '.join( [ p.platform for p in self.platform.all() ] )
+    @property
+    def genre_join(self):
+        return ', '.join( [ g.genre for g in self.genre.all() ] )
