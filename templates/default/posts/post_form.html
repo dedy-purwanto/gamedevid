@@ -28,6 +28,13 @@ $(function(){
     <input type='hidden' name='tag_sticky' value='{{SETTINGS.TAG_IMAGE_ID}}' />
 {% endif %}
 
+{% if request.GET.game %}
+    <h2>Submit Game</h2>
+    Submit your finalized game here. Don't forget to include your game screenshot, download links (if any), developer name, release date, genre and platform.
+    <input type='hidden' name='tag_sticky' value='{{SETTINGS.TAG_GAME_ID}}' />
+{% endif %}
+
+
 {% if form.title %}
     <table>
         <tbody>

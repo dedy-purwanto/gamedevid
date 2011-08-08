@@ -42,7 +42,7 @@ USE_L10N = True
 
 MEDIA_ROOT = PROJECT_PATH + '/media/'
 
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = PROJECT_PATH + '/static/'
 
@@ -112,6 +112,7 @@ INSTALLED_APPS = (
     'sentry.client',
     'mptt',
     'tinymce',
+    'easy_thumbnails',
 
     # Site Apps
     'cores',
@@ -164,7 +165,7 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 TAG_IMAGE_ID = 16
-
+TAG_GAME_ID = 17
 try:
     from settings_local import *
 except ImportError:

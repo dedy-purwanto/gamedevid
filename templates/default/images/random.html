@@ -1,0 +1,9 @@
+{% load url from future %}
+{% load thumbnail %}
+{% if random_image %}
+<div class='random_image_container'>
+<img src='{% thumbnail random_image.image.all.0.image 250x140 %}' class='random_image'><br />
+<a href='{% url "posts:view" post_id=random_image.id slug=random_image.title_slug %}'>{{random_image.title}}</a><br />
+<small>{{random_image.author}}
+</div>
+{% endif %}

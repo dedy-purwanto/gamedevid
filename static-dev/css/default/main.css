@@ -292,3 +292,16 @@ a{
 .showcase_item:hover{
     background-color:#ECB912;  
 }
+
+.random_image{
+    text-align:center;
+}
+.random_image_container{
+    text-align:center;
+    padding:10px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border-color:#272727;
+    background-color:#1b1b1b;
+}

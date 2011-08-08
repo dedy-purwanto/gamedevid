@@ -6,6 +6,12 @@
 </div>
 <div>
 <br /><br />
+{% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_IMAGE_ID %}
+<div class='random_image_container'>
+<img src='{{MEDIA_URL}}/{{post.image.all.0.image}}' />
+</div>
+{% endif %}
+
 {{p.content|safe}}
 {# allow edit for both author and admin #}
 {% if p.author == request.user or request.user.is_staff or request.user.is_superuser %}
