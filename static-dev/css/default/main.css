@@ -72,7 +72,7 @@ th{
     background-color:#333333;
 }
 .post_title{
-    font-size:15px;
+    font-size:13px;
     font-weight:700;
     display:block;
     -moz-border-radius:3px;
@@ -80,11 +80,15 @@ th{
     border-radius:3px;
     padding:5px;
     margin:5px;
+    color:#ecb912;
     border-style:solid;
     border-width:1px;
     border-color:#5A5A5A;
-    background-color:#2C2C2C;
+    background-color:#171717;
 
+}
+.post_tag{
+    float:right;
 }
 .post_tag_item_sticky,
 .post_tag_item_sticky:visited{
@@ -310,7 +314,65 @@ th{
     padding:10px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
+    border-width:1px;
     border-radius:3px;
     border-color:#272727;
+    border-style:solid;
     background-color:#1b1b1b;
+}
+.forum_breadcrumbs{
+    padding:7px;
+    margin:5px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#5a5a5a;
+    background-color:#2c2c2c;
+    font-size:11px;
+    color:#5a5a5a;
+}
+.forum_breadcrumbs a {
+    text-decoration:none;
+}
+.thread_posts{
+    width:99%;
+    padding:0px;
+    margin:5px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#5a5a5a;
+
+}
+.thread_posts tr td{
+    border-width:0px 1px 1px 0px;
+    border-color:#5a5a5a;
+    border-style:solid;
+}
+.thread_posts td, .thread_posts tr, .thread_posts tbody{
+    margin:0px;
+    padding:0px;
+}
+.post_header{
+    margin:0px;
+    background-color:#333333;
+    padding:5px;
+    border-bottom:1px solid #5a5a5a;
+}
+.post_content{
+    background-color:#3f3f3f;
+    padding:5px;
+}
+.post_author{
+    padding:10px;
+    font-size:11px;
+}
+.author_nickname{
+    color:#ecb912;
+    font-size:12px;
+    font-weight:bold;
 }

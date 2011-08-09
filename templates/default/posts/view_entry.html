@@ -1,44 +1,56 @@
 {% load url from future %}
-<div class='post'>
-<div class='author'>
-    <i>{{p.author}}</i><br />
-    <small>{{p.date_created}}</small>
-</div>
-<div>
-<br /><br />
-{% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_IMAGE_ID %}
-<div class='random_image_container'>
-<img src='{{MEDIA_URL}}/{{post.image.all.0.image}}' />
-</div>
-{% endif %}
 
-{% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_GAME_ID %}
-<div class='random_image_container'>
-<table width='100%'>
-    <tbody>
-        <tr>
-            <td style='width:300px;'>
-                <img src='{{MEDIA_URL}}/{{post.game.all.0.image}}' />
-            </td>
-            <td align='left' valign='top'>
-                Developer : {{p.game.all.0.developer}} <br />   
-                Platform : {{p.game.all.0.platform_join}}    <br />
-                Genre : {{p.game.all.0.genre_join}}    <br />
-                {% if p.game.all.0.download_url %}<br />
-                Download : <a href='p.game.all.0.download_url'>{{p.game.all.0.download_url}}</a>    
-                {% endif %}
-            </td>
-        </tr>
-    </tbody>
-</table>
-</div>
-{% endif %}
+<tr>
+    <td width='150px' align='center' valign='top' style='background-color:#333333'>
+        <div class='post_author'>
+        <a class='author_nickname'>{{p.author}}</a><br /><br /><br /><br /><br />
+        Last Login: {{p.author.last_login|date:"y/m/d"}} <br />
+        Join Date: {{p.author.date_joined|date:"y/m/d"}} <br />
+        Posts : {{p.author.post.count}} <br />
+        </div>
+    </td>
+    <td valign='top' style='background-color:#3f3f3f'>
+        <div class='post_header'>
+            <a href='{% url 'posts:edit' post_id=p.id %}'>Edit</a>
+            <div style='float:right;font-size:10px;padding-right:10px;'>
+                {{p.date_created}}
+            </div>
+        </div>
+        {% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_IMAGE_ID %}
+        <div class='random_image_container'>
+            <img src='{{MEDIA_URL}}/{{post.image.all.0.image}}' />
+        </div>
+        {% endif %}
+        <div class='post_content'>
+        {% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_GAME_ID %}
+        <div class='random_image_container'>
+        <table width='100%'>
+            <tbody>
+                <tr>
+                    <td style='width:300px;'>
+                        <img src='{{MEDIA_URL}}/{{post.game.all.0.image}}' />
+                    </td>
+                    <td align='left' valign='top'>
+                        Developer : {{p.game.all.0.developer}} <br />   
+                        Platform : {{p.game.all.0.platform_join}}    <br />
+                        Genre : {{p.game.all.0.genre_join}}    <br />
+                        {% if p.game.all.0.download_url %}<br />
+                        Download : <a href='p.game.all.0.download_url'>{{p.game.all.0.download_url}}</a>    
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        {% endif %}
+        
+        
+        {{p.content|safe}}
+        {# allow edit for both author and admin #}
+        {% if p.author == request.user or request.user.is_staff or request.user.is_superuser %}
+        {% endif %}
+        </div>
+    </td>
+</tr>
 
 
-{{p.content|safe}}
-{# allow edit for both author and admin #}
-{% if p.author == request.user or request.user.is_staff or request.user.is_superuser %}
-    <a href='{% url 'posts:edit' post_id=p.id %}'>Edit</a>
-{% endif %}
-</div>
-</div>

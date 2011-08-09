@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% block content %}
+
+{% include "tags/breadcrumbs.html" with post=post %}
+
 <div class='post_title'>
     {{post.title}}
     {% with post as p %}
     {% if p.tags %}
-        <br />
+        <div class='post_tag'>
         {% if p.sticky_tags %}
             {% for t in p.sticky_tags %}
                 <a href='{% url 'tags:tag_post_list' tag_id=t.tag.id slug=t.tag.slug %}' class='post_tag_item_sticky'>{{t.tag}}</a>
@@ -15,12 +18,21 @@
         {% for t in p.optional_tags %}
             <a href='{% url 'tags:tag_post_list' tag_id=t.id slug=t.slug %}' class='post_tag_item'>{{t}}</a>
         {% endfor %}
+        </div>
     {% endif %}
     {% endwith %}
 </div>
+
+<table class='thread_posts' cellspacing='0' cellpadding='0'>
+<tbody>
 {% include "posts/view_entry.html" with p=post %}
 {% for r in post.get_replies %}
     {% include "posts/view_entry.html" with p=r %}
 {% endfor %}
+</tbody>
+</table>
 <a href='{% url 'posts:new_reply' parent_id=post.id %}'>Reply</a>
+{% include "tags/breadcrumbs.html" with post=post %}
+
 {% endblock %}
+

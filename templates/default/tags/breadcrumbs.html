@@ -1,0 +1,14 @@
+{% load url from future %}
+{% load mptt_tags %}
+{% with post as p %}
+{% if p.sticky_tags %}
+{% with p.sticky_tags.all.0 as t %}
+<div class='forum_breadcrumbs'>
+{% for tag in t.tag.get_ancestors %}
+<a href='{% url 'tags:tag_post_list' tag_id=tag.id slug=tag.slug %}'>{{tag}}</a>&nbsp;/&nbsp;
+{% endfor %}
+<a href='{% url 'tags:tag_post_list' tag_id=t.tag.id slug=t.tag.slug %}'>{{t.tag}}</a> / {{p.title}}
+</div>
+{% endwith %}
+{% endif %}
+{% endwith %}

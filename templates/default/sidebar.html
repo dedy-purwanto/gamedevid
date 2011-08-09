@@ -14,13 +14,10 @@
 
 {% endif %}
 
-
-
 <div class='column'>
-<div class='column_header'>Random Image</div>
-{% include "images/random.html" %}
+<div class='column_header'>Forums</div>
+{% include "tags/brief_list.html" %}
 </div>
-
 <div class='column'>
     <div class='column_header'>Recent Threads</div>
     {% for p in global_latest_posts %}
@@ -37,7 +34,5 @@
     {% endfor %}
 </div>
 
-<div class='column'>
-<div class='column_header'>Forums</div>
-{% include "tags/brief_list.html" %}
-</div>
+
+
