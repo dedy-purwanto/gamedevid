@@ -21,8 +21,8 @@ $(function(){
 <form method='post' action='' class='ui-form' enctype='multipart/form-data'>
 {{form.errors}}
 {{tag_form.errors}}
-{{image_form.errors}}
-{{game_form.errors}}
+{% if request.GET.image %}{{image_form.errors}}{% endif %}
+{% if request.GET.game %}{{game_form.errors}}{% endif %}
 {% if request.GET.image %}
     <h2>Submit Image</h2>
     You can submit your Work In Progress (WIP) Game, Game Art, or anything related to game development in here. If this is a finished game, please use "Submit a Game" instead.
@@ -73,7 +73,9 @@ $(function(){
     </table>
 {% endif %}
 {{form.content}}<br />
+{% if tag_form.tag_optional %}
 Optional Tags: {{tag_form.tag_optional}}<br />
+{% endif %}
 {% csrf_token %}
 <button type='submit'>Post</button>
 </form>

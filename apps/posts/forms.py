@@ -43,6 +43,10 @@ class PostForm(forms.ModelForm):
                 return title
         except:
             pass
+        
+        if len(title) < 5:
+            raise ValidationError("Your title is too short!")
+
         try:
             post = Post.objects.get(title = title)
             if post is not None:
@@ -56,6 +60,10 @@ class PostForm(forms.ModelForm):
                 return content
         except:
             pass
+
+        if len(content) < 20:
+            raise ValidationError("Your reply is too short!")
+
         try:
             post = Post.objects.get(content = content)
             if post is not None:
