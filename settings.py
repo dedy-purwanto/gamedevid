@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'tags',
     'images',
     'games',
+    'avatars',
 
 )
 

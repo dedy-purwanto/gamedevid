@@ -369,7 +369,7 @@ th{
 }
 .post_author{
     padding:10px;
-    font-size:11px;
+    font-size:10px;
 }
 .author_nickname{
     color:#ecb912;
@@ -419,4 +419,15 @@ background-image: -moz-linear-gradient(
     rgb(241,241,241) 55%,
     rgb(241,241,241) 55%
 );
+}
+.avatar{
+    padding:5px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#5a5a5a;
+    background-color:#1b1b1b;
+
 }

@@ -1,9 +1,12 @@
 {% load url from future %}
-
+{% load thumbnail %}
 <tr>
     <td width='150px' align='center' valign='top' style='background-color:#333333'>
         <div class='post_author'>
-        <a class='author_nickname'>{{p.author}}</a><br /><br /><br /><br /><br />
+        <a class='author_nickname'>{{p.author}}</a><br /><br />
+
+        <img src='{% thumbnail p.author.avatar.image 128x128 %}' class='avatar' /><br />
+
         Last Login: {{p.author.last_login|date:"y/m/d"}} <br />
         Join Date: {{p.author.date_joined|date:"y/m/d"}} <br />
         Posts : {{p.author.post.count}} <br />
@@ -27,10 +30,10 @@
         <table width='100%'>
             <tbody>
                 <tr>
-                    <td style='width:300px;'>
+                    <td style='width:300px; border:none;'>
                         <img src='{{MEDIA_URL}}/{{post.game.all.0.image}}' />
                     </td>
-                    <td align='left' valign='top'>
+                    <td align='left' valign='top' style='border:none'>
                         Developer : {{p.game.all.0.developer}} <br />   
                         Platform : {{p.game.all.0.platform_join}}    <br />
                         Genre : {{p.game.all.0.genre_join}}    <br />
