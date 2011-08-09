@@ -6,7 +6,7 @@ Welcome, {{request.user}}
 <form method='post' action='{% url "users:login" %}'>
     <input type='text' name='username' id='username' /> 
     <input type='password' name='password' id='password' />
-    <button type='submit'>Login</button>
+    <button type='submit'>Login</button> <small>Please login with your old GDI account if you have one</small>
     {% csrf_token %}
 </form>
 <a href='{% url "users:register" %}'>Register</a>

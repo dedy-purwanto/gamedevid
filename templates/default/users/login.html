@@ -2,6 +2,7 @@
 {% load url from future %}
 {% block content %}
 <h2>User Login</h2>
+<small>Please login with your old GDI account if you have one</small>
 <form method='post' action='{% url "users:login" %}'>
 {{form.errors}}
 {{form.as_p}}
