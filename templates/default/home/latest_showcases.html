@@ -1,0 +1,9 @@
+{% load url from future %}
+
+{% for p in latest_showcases %}
+{% if forloop.counter|divisibleby:5 %}
+<br />
+{% endif %}
+{{p.id}}
+
+{% endfor %}

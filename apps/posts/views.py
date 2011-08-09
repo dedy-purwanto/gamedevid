@@ -15,6 +15,7 @@ from tags.forms import TagForm
 @login_required
 def new(request, parent_id = None):
     parent = None
+    save_mode = None
     if parent_id:
         parent = get_object_or_404(Post, pk = parent_id)
     form = PostForm(
@@ -23,7 +24,7 @@ def new(request, parent_id = None):
         author = request.user, 
         parent = parent,
     )
-
+    
     image_form = ImageForm(request.POST or None, request.FILES or None)
     game_form = GameForm(request.POST or None, request.FILES or None)
 
@@ -41,10 +42,12 @@ def new(request, parent_id = None):
     
     #an image post:
     if request.GET.get('image',False):
+        save_mode = 'image'
         valid = (parent is None and form.is_valid() and tag_form.is_valid() and image_form.is_valid())
 
     #a game post:
     if request.GET.get('game',False):
+        save_mode = 'game'
         valid = (parent is None and form.is_valid() and tag_form.is_valid() and game_form.is_valid())
 
     if valid:       
@@ -58,10 +61,10 @@ def new(request, parent_id = None):
         else:
             PostReader.clear(post = post.parent)
         
-        if image_form.is_valid():
+        if image_form.is_valid() and save_mode == 'image':
             image_form.save(post = post)
         
-        if game_form.is_valid():
+        if game_form.is_valid() and save_mode == 'game':
             game_form.save(post = post)
             game_form.save_m2m()
 
