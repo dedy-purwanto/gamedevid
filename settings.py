@@ -174,6 +174,9 @@ TINYMCE_DEFAULT_CONFIG = {
 
 TAG_IMAGE_ID = 16
 TAG_GAME_ID = 17
+
+POST_CONTENT_UNALLOWED_TAGS = "pre"
+
 try:
     from settings_local import *
 except ImportError:

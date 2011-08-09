@@ -48,7 +48,7 @@
         {% endif %}
         
         
-        {{p.content|safe}}
+        {{p.content|removetags:SETTINGS.POST_CONTENT_UNALLOWED_TAGS|safe}}
         {# allow edit for both author and admin #}
         {% if p.author == request.user or request.user.is_staff or request.user.is_superuser %}
         {% endif %}
