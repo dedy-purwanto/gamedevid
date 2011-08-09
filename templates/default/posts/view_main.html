@@ -31,7 +31,9 @@
 {% endfor %}
 </tbody>
 </table>
-<a href='{% url 'posts:new_reply' parent_id=post.id %}'>Reply</a>
+<div class='quick_reply_container' align='center'>
+    {% include "posts/quick_reply_form.html" with post=post %}
+</div>
 {% include "tags/breadcrumbs.html" with post=post %}
 
 {% endblock %}

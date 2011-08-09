@@ -105,11 +105,14 @@ def edit(request, post_id):
 def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
 
+    reply_form = PostForm(author = request.user, quick_reply = True) # No need to get anything here, coz it'll be redirected to reply page
+
     if request.user.is_authenticated():
         PostReader.add(user = request.user, post = post if post.parent is not None else post)
 
     context = {
                 'post' : post,
+                'reply_form' : reply_form,
               }
 
     return render_to_response(

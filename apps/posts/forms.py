@@ -7,12 +7,14 @@ from models import Post
 
 class PostForm(forms.ModelForm):
     title = forms.CharField(required = True)
-    content = forms.CharField(widget=TinyMCE(attrs={'cols':80, 'rows':20}))
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author')
         parent = None
+        quick_reply = False
         if 'parent' in kwargs:
             parent = kwargs.pop('parent')
+        if 'quick_reply' in kwargs:
+            quick_reply = kwargs.pop('quick_reply')
 
         super(PostForm, self).__init__(*args, **kwargs)
         
@@ -26,6 +28,14 @@ class PostForm(forms.ModelForm):
         
         if is_reply:
             self.fields.pop('title')
+
+        content_cols = 80
+        content_rows = 20
+        if quick_reply:
+            content_cols = 50
+            content_rows = 10
+        
+        self.fields['content'] = forms.CharField(widget=TinyMCE(attrs={'cols':content_cols, 'rows':content_rows}))
     def clean_title(self):
         title = self.cleaned_data['title']
         try:

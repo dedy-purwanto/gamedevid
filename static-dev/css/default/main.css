@@ -376,3 +376,47 @@ th{
     font-size:12px;
     font-weight:bold;
 }
+.quick_reply_container{
+    padding:7px;
+    margin:5px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#5a5a5a;
+    background-color:#2c2c2c;
+    font-size:11px;
+    color:#5a5a5a;
+    text-align:center;
+}
+.quick_reply_container form{
+    text-align:center;
+}
+.quick_reply_container button{
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#ffffff;
+    width:100px; 
+    font-size:10px;
+    font-family:Arial, Verdana;
+    padding:5px;
+    background-color:#f1f1f1;
+    background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.53, rgb(212,212,212)),
+    color-stop(0.55, rgb(241,241,241)),
+    color-stop(0.55, rgb(241,241,241))
+);
+background-image: -moz-linear-gradient(
+    center bottom,
+    rgb(212,212,212) 53%,
+    rgb(241,241,241) 55%,
+    rgb(241,241,241) 55%
+);
+}

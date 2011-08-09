@@ -1,0 +1,11 @@
+{% load url from future %}
+
+
+{{reply_form.media}}
+
+<form method='post' action='{% url "posts:new_reply" parent_id=post.id %}'>
+<div align='center'>{{reply_form.content}}</div><br />
+{% csrf_token %}
+<button type='submit'>Reply</button>&nbsp;&nbsp;
+<button type='reset'>Reset</button>
+</form>
