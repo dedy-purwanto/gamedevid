@@ -12,7 +12,7 @@ from games.models import Game
 def home(request):
     latest_games = Game.objects.all().order_by('-id')[:5]
     latest_showcases = Post.objects.exclude(Q(image = None) & Q(game = None)).order_by('-id')[:10]
-
+    
     context = {
                 'latest_games' : latest_games,
                 'latest_showcases' : latest_showcases

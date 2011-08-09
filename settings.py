@@ -54,6 +54,11 @@ STATICFILES_DIRS = (
         PROJECT_PATH + '/static-dev',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'legacies.users.backends.Authentication',
+)
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -124,7 +129,7 @@ INSTALLED_APPS = (
     'images',
     'games',
     'avatars',
-
+    'legacies.users',
 )
 
 LOGGING = {
