@@ -13,7 +13,7 @@ class Platform(models.Model):
 
 class Game(models.Model):
     image = models.ImageField(blank= False, null = False, upload_to = 'uploaded_images')
-    post = models.ForeignKey(Post, null = False, blank=False, related_name = 'game')
+    post = models.OneToOneField(Post, null = False, blank=False, related_name = 'game')
     download_url = models.URLField(blank = True)
     developer = models.CharField(blank = True, max_length = 255)
     release_date = models.CharField(blank = True, max_length = 255)

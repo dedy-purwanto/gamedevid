@@ -2,7 +2,12 @@
 
 {% for p in latest_showcases %}
 {% if forloop.counter|divisibleby:5 %}
-<br />
+{% if p.image %}
+
+{% endif %}
+{% if p.game %}
+
+{% endif %}
 {% endif %}
 {{p.id}}
 
