@@ -431,3 +431,41 @@ background-image: -moz-linear-gradient(
     background-color:#1b1b1b;
 
 }
+.latest_showcase_thumbnail{
+    margin:2px;
+    float:left;
+    width:100px;
+    height:80px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#5a5a5a;
+    background-color:#1b1b1b;    
+    position:relative;
+    text-align:center;
+    vertical-align:middle;
+}
+.latest_showcase_thumbnail img{
+    padding:0px;
+    z-index:1;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    
+}
+.latest_showcase_thumbnail p{
+    text-align:center;
+    font-size:10px;
+    margin:0px;
+    float:top;
+    position:absolute;
+    bottom:0;
+    z-index:3;
+    background-color:#000000;
+    width:100%;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+    opacity: 0.8;
+}

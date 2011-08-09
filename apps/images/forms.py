@@ -2,6 +2,7 @@ from django import forms
 from .models import Image
 
 class ImageForm(forms.ModelForm):
+    #TODO: remove latest before edit
     def save(self, *args, **kwargs):
         post = kwargs.pop('post')
         image = super(ImageForm, self).save(commit = False)

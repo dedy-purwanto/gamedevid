@@ -2,6 +2,7 @@ from django import forms
 from .models import Game
 
 class GameForm(forms.ModelForm):
+    #TODO remove latest before edit
     def save(self, *args, **kwargs):
         post = kwargs.pop('post')
         game = super(GameForm, self).save(commit = False)
