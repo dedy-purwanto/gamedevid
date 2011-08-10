@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'users',
     'home',
     'posts',
+    'announcements',
     'tags',
     'images',
     'games',
