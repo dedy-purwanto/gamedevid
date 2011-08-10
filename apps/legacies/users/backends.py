@@ -16,7 +16,7 @@ class Authentication:
             try:
                 user = User.objects.get(username = username)
             except User.DoesNotExist:
-                new_password = 'sha1$%s$%s' % (old_user.salt, hashlib.sha1(password).hexdigest())
+                new_password = 'sha1$%s$%s' % (old_user.salt, hashlib.sha1(old_user.salt + password).hexdigest())
                 user = User(username = username, password = new_password)
                 
                 user.is_staff = False
