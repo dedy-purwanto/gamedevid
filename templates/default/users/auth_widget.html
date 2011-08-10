@@ -28,6 +28,23 @@
         <div class="user_action"><a href='{% url "users:login" %}'>Login</a></div>
 		<br/>
         <div id='nav'>
+		<form method='post' action='{% url "users:login" %}'>
+			<div style="float:left;">
+			<small>username</small>
+			<br/>
+			<input type='text' name='username' id='username' />
+			</div>
+			<div style="float:left;">
+			<small>password</small>
+			<br/>
+			<input type='password' name='password' id='password' />
+			</div>
+			<div style="float:left;">
+			<button type='submit'>Login</button>
+			</div>
+			<small>Please login with your old GDI account if you have one</small><br/>
+			{% csrf_token %}
+		</form>
 		</div>
     </div>
 </div>
