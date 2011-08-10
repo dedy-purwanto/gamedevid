@@ -9,7 +9,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, related_name = "post")
     date_created = models.DateTimeField(auto_now_add = True)
     parent = models.ForeignKey("self", related_name = "post_parent", null = True)
-    date_sorted = models.DateTimeField(null = True) #Filled only for parent thread, for sorting purpose (need improvement later)
+    date_sorted = models.DateTimeField(blank = True, null = True) #Filled only for parent thread, for sorting purpose (need improvement later)
     def __unicode__(self):
         if self.title:
             return self.title
