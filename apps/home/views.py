@@ -11,7 +11,7 @@ from games.models import Game
 #Home is just a home, its just a single page that combines everything
 #Please separate another page into a single app instead
 def home(request):
-    latest_games = Game.objects.all().order_by('-id')[:5]
+    latest_games = Game.objects.all().order_by('-id')[:4]
     latest_showcases = Post.objects.exclude(Q(image = None) & Q(game = None)).order_by('-id')[:10]
 
     latest_announcements = Post.objects.exclude(announcement = None).order_by('-id')
