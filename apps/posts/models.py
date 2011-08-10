@@ -4,15 +4,16 @@ from django.template import defaultfilters
 
 # Create your models here.
 class Post(models.Model):
-    title = models.TextField(blank = True, null = True)
-    content = models.TextField(blank = False, null = False)
+    title = models.TextField(blank = True)
+    content = models.TextField(blank = False)
     author = models.ForeignKey(User, related_name = "post")
     date_created = models.DateTimeField(auto_now_add = True)
-    parent = models.ForeignKey("self", related_name = "post_parent", blank = True, null = True)
-    date_sorted = models.DateTimeField(blank = True, null = True) #Filled only for parent thread, for sorting purpose (need improvement later)
+    parent = models.ForeignKey("self", related_name = "post_parent", null = True)
+    date_sorted = models.DateTimeField(null = True) #Filled only for parent thread, for sorting purpose (need improvement later)
     def __unicode__(self):
-        return self.title
-
+        if self.title:
+            return self.title
+        return u'' #For legacy support since last time we still have null-able titles
         
     @property
     def content_short(self):
