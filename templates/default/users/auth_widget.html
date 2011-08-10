@@ -1,13 +1,52 @@
 {% load url from future %}
 {% if request.user.is_authenticated %}
-Welcome, {{request.user}} 
-<a href='{% url "users:logout" %}'>Log Out</a>
 {% else %}
+<!--<div id='header_bottom'></div>-->
+
+<!--
+<span class="user_action">
+<a href='{% url "users:register" %}'>Register</a>
+</span>
+<span class="user_action">
+<a href='{% url "users:login" %}'>Login</a>
+</span>
+<div id='nav'>
 <form method='post' action='{% url "users:login" %}'>
+	<small>Please login with your old GDI account if you have one</small><br/>
     <input type='text' name='username' id='username' /> 
     <input type='password' name='password' id='password' />
-    <button type='submit'>Login</button> <small>Please login with your old GDI account if you have one</small>
+    <button type='submit'>Login</button>
     {% csrf_token %}
 </form>
-<a href='{% url "users:register" %}'>Register</a>
+</div>
+-->
+
+<div class='column'>
+    <div class='column_header'>Hello, {{request.user}}</div>
+		<div class="user_action"><a href='/'>Home</a></div>
+        <div class="user_action"><a href='{% url "users:register" %}'>Register</a></div>
+        <div class="user_action"><a href='{% url "users:login" %}'>Login</a></div>
+		<br/>
+        <div id='nav'>
+		<form method='post' action='{% url "users:login" %}'>
+			<div style="float:left;">
+			<small>username</small>
+			<br/>
+			<input type='text' name='username' id='username' />
+			</div>
+			<div style="float:left;">
+			<small>password</small>
+			<br/>
+			<input type='password' name='password' id='password' />
+			</div>
+			<div style="float:left;">
+			<button type='submit'>Login</button>
+			</div>
+			<small>Please login with your old GDI account if you have one</small><br/>
+			{% csrf_token %}
+		</form>
+		</div>
+    </div>
+</div>
+
 {% endif %}

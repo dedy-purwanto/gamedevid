@@ -1,0 +1,21 @@
+{% load url from future %}
+{% load thumbnail %}
+
+<table width='100%'>
+<tr><td>
+{% for g in latest_games %}
+<div class='showcase_item' post_id='{{g.post.id}}'>
+    <img src='{% thumbnail g.image 120x96 %}' />
+    <p>{{g.post.title_short}}</p>
+</div>
+{% endfor %}
+</td></tr>
+</table>
+
+<!--
+	{% for g in latest_games %}
+    <a class='showcase_item' post_id='{{g.post.id}}'>
+        {{g.post.title_short}}
+    </a>
+    {% endfor %}
+-->

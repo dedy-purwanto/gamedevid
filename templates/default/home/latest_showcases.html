@@ -3,15 +3,34 @@
 <table width='100%'>
 <tr><td>
 {% for p in latest_showcases %}
+{% if p.image %}
+<div class='latest_showcase_thumbnail' style='text-align:center;vertical-align:middle;'>	
+	<a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>
+    <img src='{% thumbnail p.image.image 100x80 %}' />
+    <p>{{p.title}}</p>
+	</a>
+</div>
+{% endif %}
+{% endfor %}
+</td></tr>
+</table>
+
+<!--
+<table width='100%'>
+<tr><td>
+{% for p in latest_showcases %}
 <div class='latest_showcase_thumbnail' style='text-align:center;vertical-align:middle;'>
+	<a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>
     {% if p.image %}
         <img src='{% thumbnail p.image.image 100x80 %}' />
     {% endif %}
     {% if p.game %}
         <img src='{% thumbnail p.game.image 100x80 %}' />
     {% endif %}
-    <p><a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>{{p.title}}</a></p>
+    <p>{{p.title}}</p>
+	</a>
 </div>
 {% endfor %}
 </td></tr>
 </table>
+-->
