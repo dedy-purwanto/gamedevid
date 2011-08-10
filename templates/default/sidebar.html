@@ -1,14 +1,16 @@
 {% load url from future %}
+{% include "users/auth_widget.html" %}
 {% if request.user.is_authenticated %}
 <div class='column'>
     <div class='column_header'>Hello, {{request.user}}</div>
-        <a href="javascript:mainLayout.toggle('south')">Chat</a><br />
-        <a href='{% url "posts:new" %}'>Write Post</a><br />
-        <a href='{% url "posts:new" %}?game=yes'>Submit Game</a><br />
-        <a href='{% url "posts:new" %}?image=yes'>Submit Image</a><br />
+		<div class="user_action"><a href='/'>Home</a></div>
+        <div class="user_action"><a href="javascript:mainLayout.toggle('south')">Chat</a></div>
+        <div class="user_action"><a href='{% url "posts:new" %}'>Write Post</a></div>
+        <div class="user_action"><a href='{% url "posts:new" %}?game=yes'>Submit Game</a></div>
+        <div class="user_action"><a href='{% url "posts:new" %}?image=yes'>Submit Image</a></div>
         <br /><br />
-        <a href='{% url "users:edit_profile" %}'>Edit Profile</a><br />
-        <a href='{% url "users:logout" %}'>Log Out</a>
+        <div class="user_action"><a href='{% url "users:edit_profile" %}'>Edit Profile</a></div>
+        <div class="user_action"><a href='{% url "users:logout" %}'>Log Out</a></div>
     </div>
 </div>
 
@@ -22,16 +24,18 @@
 <div class='column'>
     <div class='column_header'>Recent Threads</div>
     {% for p in global_latest_posts %}
-        <a class='recent_threads_item' href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>
-            {% if not request.user in p.get_readers %}
-            <b>
-            {% endif %}
-            {{p.title}}
-            {% if not request.user in p.get_readers %}
-            </b>
-            {% endif %}
-            <span class='info'>({{p.get_replies.count}}) {{p.get_last_reply.author}}</span>
+		<div class="{% cycle 'recent_threads_item_box_even' 'rect_threads_item_box_odd' %}">
+        <a class="recent_threads_item" href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>
+			{% if not request.user in p.get_readers %}
+			<span class="recent_threads_item_unread">
+			{% endif %}
+			{{p.title|truncatewords:5}}
+			{% if not request.user in p.get_readers %}
+			</span>
+			{% endif %}
+			<span class='info'>({{p.get_replies.count}}) {{p.get_last_reply.author}}</span>
         </a>
+		</div>
     {% endfor %}
 </div>
 

@@ -1,0 +1,20 @@
+{% load url from future %}
+{% load thumbnail %}
+<table width='100%'>
+    <tbody>
+        <tr>
+            <td valign='top' style='padding:5px;'>
+                <a id='showcase_game_title' href='{% url "posts:view" post_id=latest_games.0.post.id slug=latest_games.0.post.title_slug %}'>{{latest_games.0.post.title}}</a>
+                <div id='showcase_game_desc'>{{latest_games.0.post.content_short|safe}}</div>
+                <small>
+                Developer : <span id='showcase_game_developer'>{{latest_games.0.developer}}</span><br />
+                Platform : <span id='showcase_game_platform'>{{latest_games.0.platform_join}}</span><br />
+                Genre: <span id='showcase_game_genre'>{{latest_games.0.genre_join}}</span>
+                </small>
+            </td>
+            <td valign='top' style='width:300px;height:180px;' class='showcase_gamethumbnail'>
+                <img id='showcase_game_thumb' src='{% thumbnail latest_games.0.image 300x169 %}' /> 
+            </td>
+        </tr>   
+    </tbody>
+</table>

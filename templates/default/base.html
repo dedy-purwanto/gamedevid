@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/dot-luv/jquery-ui.css">
 
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/default/tagit/jquery.tagit.css">
-    <title>Gamedevid</title>
+    <title>Gamedevid v2</title>
     
     {% block css-local %}{% endblock %}
     
@@ -26,10 +26,11 @@
     <body>
         <div id="global_container">
             <div id='header'>
+				<!--
                 <a href='/' id="header_text">GameDevID</a>
                 <a href='/' id="header_info">Indonesia Game Developers</a>
-                {% include "users/auth_widget.html" %}<br />
-                {% include "posts/header_widget.html" %}
+				-->
+				<a class="logo" href='/'><img src="http://www.gamedevid.org/forum/styles/GDIDark/misc/hdr_logo-o.gif"/></a>
             </div>
             
             <div id='content'>
