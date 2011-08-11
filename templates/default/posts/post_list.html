@@ -1,17 +1,22 @@
 {% load url from future %}
 
+<div class='column'>
+<div class='column_header'>Search Anu</div>
+
 <table width='100%'>
 <thead>
     <tr>
-        <th align='left'>Post</th>
-        <th>Forum</th>
-        <th>Replies</th>
-        <th>Last Replied</th>
+        <th style="text-align:center; font-size:12px; font-weight:bold;">Thread</th>
+        <th style="text-align:center; font-size:12px; font-weight:bold;">Forum</th>
+        <th style="text-align:center; font-size:12px; font-weight:bold;">Replies</th>
+		<th style="text-align:center; font-size:12px; font-weight:bold;">Views</th>
+        <th style="text-align:center; font-size:12px; font-weight:bold;">Last Replied</th>
     </tr>
 </thead>
+
 <tbody>
 {% for p in post_list.object_list %}
-    <tr>
+    <tr class="{% cycle 'recent_threads_item_box_even' 'rect_threads_item_box_odd' %}">
         <td width='50%'>
             {% if not request.user in p.get_readers %}
             <b>
@@ -22,7 +27,7 @@
             {% endif %}<br />
             by {{p.author}}
         </td>
-        <td align='center' width='25%'>
+        <td style="text-align:center" width='25%'>
             {% if p.tags %}
             {% if p.sticky_tags %}
                 {% for t in p.sticky_tags %}
@@ -31,10 +36,14 @@
             {% endif %}
             {% endif %}
         </td>
-        <td align='center'>{{p.get_replies.count}}</td>
-        <td>
+        <td style="text-align:center">{{p.get_replies.count}}</td>
+		<td style="text-align:center"></td>
+        <td style="text-align:center">
             {% if p.get_replies.count > 0 %}
-                {{p.get_last_reply.author}} on {{p.get_last_reply.date_created}}
+				<div style='font-size:12px;color:#f1b906;'>
+                {{p.get_last_reply.date_created}}
+				</div>
+				<small>by {{p.get_last_reply.author}}</small>
             {% endif %}
 
         </td>
@@ -53,3 +62,5 @@ Jump to:
         <a href='?page={{n}}'>{{n}}</a>
     {% endif %}&nbsp;
 {% endfor %}
+
+</div>

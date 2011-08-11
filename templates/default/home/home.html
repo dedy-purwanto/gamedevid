@@ -8,7 +8,7 @@
         {% for g in latest_games %}
             'games_{{g.post.id}}' : {
                 'title' : '{{g.post.title}}',
-                'desc' : '{{g.post.content_short|safe}}',
+                'desc' : '{{g.post.content_short|striptags}}',
                 'author' : '{{g.post.author}}',
                 'developer' : '{{g.developer}}',
                 'platform' : '{{g.platform_join}}',
@@ -20,6 +20,7 @@
     }
 </script>
 
+<iframe src="http://gdishoutbox.appspot.com" style="100%;height:280px;border:none;margin:0px;" width='100%' height='100%' frameborder='0' scrolling='auto'>The browser doesn't support for iframe!</iframe>
 {% if latest_games %}
 <div class='showcase_container'>
 <div class='column_header'>Latest Games</div>
@@ -54,26 +55,23 @@
     </tbody>
 </table>
 
-<div class='column'>
-    <div class='column_header'>Announcement</div>
-    {% for p in latest_announcements %}
-        <a href='{% url 'posts:view' post_id=p.id slug=p.title_slug %}'>
-            <h3 align='center'>{{p.title}}</h3>
-        </a>
-        <small>{{p.date_created}} by {{p.author}}</small><br />
-        {{p.content|removetags:SETTINGS.POST_CONTENT_UNALLOWED_TAGS|safe}}
-        <hr />
-    {% endfor %}
-</div>
-<div class='column'>
-    <div class='column_header'>Shoutbox</div>
-    <iframe src="http://gdishoutbox.appspot.com" style="100%;height:280px;border:none;margin:0px;" width='100%' height='100%' frameborder='0' scrolling='auto'>The browser doesn't support for iframe!</iframe>
-</div>
+
 <div class='column'>
 	<div class='column_header'>Latest Images</div>
     {% include "home/latest_showcases.html" %}
 </div>
 
+<div class='column'>
+    <div class='column_header'>Announcements, News and Events</div>
+    {% for p in latest_announcements %}
+        <a href='{% url 'posts:view' post_id=p.id slug=p.title_slug %}'>
+            <h3 align='center'>{{p.title}}</h3>
+        </a>
+        <small>{{p.date_created}} by {{p.author}}</small><br />
+        {{p.content_short|removetags:SETTINGS.POST_CONTENT_UNALLOWED_TAGS|safe}}
+        <hr />
+    {% endfor %}
+</div>
 <script>
     $(function(){
         $('.showcase_item').click(function(){
