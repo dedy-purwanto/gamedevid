@@ -5,6 +5,8 @@ from django.template import RequestContext
 from django.shortcuts import redirect
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from .models import Post, PostReader
 from images.forms import ImageForm
 from games.forms import GameForm
@@ -107,6 +109,17 @@ def edit(request, post_id):
 
 def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
+    posts = Post.objects.filter(Q(pk = post_id) | Q(parent = post)).order_by('id') 
+    paginator = Paginator(posts, 10)
+    try:
+        page = int(request.GET.get('page','1'))
+        posts = paginator.page(page)
+    except ValueError:
+        page = 1
+    try:
+        posts = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        posts = paginator.page(paginator.num_pages)
 
     reply_form = PostForm(author = request.user, quick_reply = True) # No need to get anything here, coz it'll be redirected to reply page
 
@@ -114,7 +127,7 @@ def view(request, post_id, slug):
         PostReader.add(user = request.user, post = post if post.parent is not None else post)
 
     context = {
-                'post' : post,
+                'posts' : posts,
                 'reply_form' : reply_form,
               }
 

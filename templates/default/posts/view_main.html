@@ -2,11 +2,11 @@
 {% load url from future %}
 {% block content %}
 
-{% include "tags/breadcrumbs.html" with post=post %}
-
+{% include "tags/breadcrumbs.html" with post=posts.object_list.0 %}
+{% include "posts/posts_paging.html" with posts=posts %}
 <div class='post_title'>
-    {{post.title}}
-    {% with post as p %}
+    {{posts.object_list.0.title}}
+    {% with posts.object_list.0 as p %}
     {% if p.tags %}
         <div class='post_tag'>
         {% if p.sticky_tags %}
@@ -25,16 +25,16 @@
 
 <table class='thread_posts' cellspacing='0' cellpadding='0'>
 <tbody>
-{% include "posts/view_entry.html" with p=post %}
-{% for r in post.get_replies %}
-    {% include "posts/view_entry.html" with p=r %}
+{% for p in posts.object_list %}
+    {% include "posts/view_entry.html" with p=p %}
 {% endfor %}
 </tbody>
 </table>
+{% include "posts/posts_paging.html" with posts=posts %}
 <div class='quick_reply_container' align='center'>
-    {% include "posts/quick_reply_form.html" with post=post %}
+    {% include "posts/quick_reply_form.html" with post=posts.object_list.0 %}
 </div>
-{% include "tags/breadcrumbs.html" with post=post %}
+{% include "tags/breadcrumbs.html" with post=posts.object_list.0 %}
 
 {% endblock %}
 
