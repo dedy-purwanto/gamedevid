@@ -12,7 +12,7 @@ from games.models import Game
 #Please separate another page into a single app instead
 def home(request):
     latest_games = Game.objects.all().order_by('-id')[:4]
-    latest_showcases = Post.objects.exclude(Q(image = None) & Q(game = None)).order_by('-id')[:10]
+    latest_showcases = Post.objects.exclude(Q(image = None) & Q(game = None)).order_by('-id')[:20]
 
     latest_announcements = Post.objects.exclude(announcement = None).order_by('-id')
     if latest_announcements.count() > 0:

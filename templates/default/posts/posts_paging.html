@@ -1,0 +1,9 @@
+{% load url from future %}
+Page : 
+{% for n in posts.paginator.page_range %}
+    {% if n == posts.number %}
+        <b>{{n}}</b>
+    {% else %}
+        <a href='?page={{n}}'>{{n}}</a>
+    {% endif %}&nbsp;
+{% endfor %}

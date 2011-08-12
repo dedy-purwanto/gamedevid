@@ -9,7 +9,7 @@ def tag_post_list(request, tag_id, slug):
     tag_post = TagPost.objects.filter(tag = tag).order_by('-post__date_sorted')
     tag_post.query.group_by = ['post_id']
     post_list = [tp.post for tp in tag_post]
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, 40)
     try:
         page = int(request.GET.get('page','1'))
         posts = paginator.page(page)

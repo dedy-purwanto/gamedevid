@@ -14,8 +14,13 @@
     </td>
     <td valign='top' style='background-color:#3f3f3f'>
         <div class='post_header'>
+<<<<<<< HEAD
             {% if request.user == p.author or request.user.is_staff or request.user.is_superuser %}
 	    <span class="user_action"><a href='{% url 'posts:edit' post_id=p.id %}'>Edit</a></span> 
+=======
+        {% if request.user == p.author or request.user.is_superuser or request.user.is_staff %}
+	        <span class="user_action"><a href='{% url 'posts:edit' post_id=p.id %}'>Edit</a></span> 
+>>>>>>> fd38f40b9d62a80a20d807aa495abff51432e239
 	    {% else %}
 	    &nbsp;
 	    {% endif %}
@@ -25,7 +30,7 @@
         </div>
         {% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_IMAGE_ID %}
         <div class='random_image_container'>
-            <img src='{% thumbnail post.image.image 550x413 %}' />
+            <img src='{% thumbnail p.image.image 550x413 %}' />
         </div>
         {% endif %}
         <div class='post_content'>
@@ -35,7 +40,7 @@
             <tbody>
                 <tr>
                     <td style='width:300px; border:none;'>
-                        <img src='{% thumbnail post.game.image 550x413 %}' />
+                        <img src='{% thumbnail p.game.image 550x413 %}' />
                     </td>
                     <td align='left' valign='top' style='border:none'>
                         Developer : {{p.game.developer}} <br />   

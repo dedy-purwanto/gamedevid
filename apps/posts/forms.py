@@ -38,15 +38,13 @@ class PostForm(forms.ModelForm):
         self.fields['content'] = forms.CharField(widget=TinyMCE(attrs={'cols':content_cols, 'rows':content_rows}))
     def clean_title(self):
         title = self.cleaned_data['title']
+        if len(title) < 20:
+            raise ValidationError("Your title is too short!")
         try:
             if self.instance.pk:
                 return title
         except:
             pass
-        
-        if len(title) < 5:
-            raise ValidationError("Your title is too short!")
-
         try:
             post = Post.objects.get(title = title)
             if post is not None:
@@ -55,15 +53,13 @@ class PostForm(forms.ModelForm):
             return title
     def clean_content(self):
         content = self.cleaned_data['content']
+        if len(content) < 30:
+            raise ValidationError("Your post is too short!")
         try:
             if self.instance.pk:
                 return content
         except:
             pass
-
-        if len(content) < 20:
-            raise ValidationError("Your reply is too short!")
-
         try:
             post = Post.objects.get(content = content)
             if post is not None:
@@ -83,19 +79,15 @@ class PostForm(forms.ModelForm):
             pass
         return is_valid
     def save(self):
+        if not self.instance.pk: #it's a new post/reply
+            self.instance.author = self.author
+            if self.instance.parent is None:
+                self.instance.date_sorted = datetime.now()
+            else:
+                self.instance.parent.date_sorted = datetime.now()
+                self.instance.parent.save()
+        return super(PostForm, self).save(commit = True)
         
-
-        post = super(PostForm, self).save(commit = False)
-        if post.parent is None:
-            post.date_sorted = datetime.now()
-        else:
-            post.parent.date_sorted = datetime.now()
-            post.parent.save()
-        if not self.instance.pk:
-            post.author = self.author
-        
-        post.save()
-        return post
     class Meta:
         model = Post
         exclude = ('author','parent')
