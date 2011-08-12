@@ -14,13 +14,8 @@
     </td>
     <td valign='top' style='background-color:#3f3f3f'>
         <div class='post_header'>
-<<<<<<< HEAD
             {% if request.user == p.author or request.user.is_staff or request.user.is_superuser %}
 	    <span class="user_action"><a href='{% url 'posts:edit' post_id=p.id %}'>Edit</a></span> 
-=======
-        {% if request.user == p.author or request.user.is_superuser or request.user.is_staff %}
-	        <span class="user_action"><a href='{% url 'posts:edit' post_id=p.id %}'>Edit</a></span> 
->>>>>>> fd38f40b9d62a80a20d807aa495abff51432e239
 	    {% else %}
 	    &nbsp;
 	    {% endif %}
