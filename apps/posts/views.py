@@ -134,6 +134,7 @@ def edit(request, post_id):
 
 def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
+    post_parent = post
     posts = Post.objects.filter(Q(pk = post_id) | Q(parent = post)).order_by('id') 
     paginator = Paginator(posts, 10)
     try:
@@ -153,6 +154,7 @@ def view(request, post_id, slug):
 
     context = {
                 'posts' : posts,
+                'post_parent' : post_parent,
                 'reply_form' : reply_form,
               }
 

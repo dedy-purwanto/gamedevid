@@ -38,7 +38,7 @@ class PostForm(forms.ModelForm):
         self.fields['content'] = forms.CharField(widget=TinyMCE(attrs={'cols':content_cols, 'rows':content_rows}))
     def clean_title(self):
         title = self.cleaned_data['title']
-        if len(title) < 20:
+        if len(title) < 8:
             raise ValidationError("Your title is too short!")
         try:
             if self.instance.pk:

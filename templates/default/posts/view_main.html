@@ -2,7 +2,7 @@
 {% load url from future %}
 {% block content %}
 
-{% include "tags/breadcrumbs.html" with post=posts.object_list.0 %}
+{% include "tags/breadcrumbs.html" with post=post_parent %}
 {% include "posts/posts_paging.html" with posts=posts %}
 <div class='post_title'>
     {{posts.object_list.0.title}}
@@ -32,9 +32,9 @@
 </table>
 {% include "posts/posts_paging.html" with posts=posts %}
 <div class='quick_reply_container' align='center'>
-    {% include "posts/quick_reply_form.html" with post=posts.object_list.0 %}
+    {% include "posts/quick_reply_form.html" with post=post_parent %}
 </div>
-{% include "tags/breadcrumbs.html" with post=posts.object_list.0 %}
+{% include "tags/breadcrumbs.html" with post=post_parent %}
 
 {% endblock %}
 
