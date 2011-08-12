@@ -44,7 +44,7 @@ class PostForm(forms.ModelForm):
         except:
             pass
         
-        if len(title) < 5:
+        if len(title) < 20:
             raise ValidationError("Your title is too short!")
 
         try:
@@ -61,8 +61,8 @@ class PostForm(forms.ModelForm):
         except:
             pass
 
-        if len(content) < 20:
-            raise ValidationError("Your reply is too short!")
+        if len(content) < 30:
+            raise ValidationError("Your post is too short!")
 
         try:
             post = Post.objects.get(content = content)
