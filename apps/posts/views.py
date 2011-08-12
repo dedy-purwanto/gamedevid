@@ -136,12 +136,12 @@ def view(request, post_id, slug):
     post = get_object_or_404(Post, pk = post_id)
     post_parent = post
     posts = Post.objects.filter(Q(pk = post_id) | Q(parent = post)).order_by('id') 
-    paginator = Paginator(posts, 1)
+    paginator = Paginator(posts, 10)
     try:
-        page = int(request.GET.get('page','1'))
+        page = int(request.GET.get('page',paginator.num_pages))
         posts = paginator.page(page)
     except ValueError:
-        page = 1
+        page = paginator.num_pages
     try:
         posts = paginator.page(page)
     except (EmptyPage, InvalidPage):
