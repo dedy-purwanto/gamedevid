@@ -5,8 +5,8 @@
 {% include "tags/breadcrumbs.html" with post=post_parent %}
 {% include "posts/posts_paging.html" with posts=posts %}
 <div class='post_title'>
-    {{posts.object_list.0.title}}
-    {% with posts.object_list.0 as p %}
+    {{post_parent.title}}
+    {% with post_parent as p %}
     {% if p.tags %}
         <div class='post_tag'>
         {% if p.sticky_tags %}
