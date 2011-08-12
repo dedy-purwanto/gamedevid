@@ -83,19 +83,15 @@ class PostForm(forms.ModelForm):
             pass
         return is_valid
     def save(self):
+        if not self.instance.pk: #it's a new post/reply
+            self.instance.author = self.author
+            if self.instance.parent is None:
+                self.instance.date_sorted = datetime.now()
+            else:
+                self.instance.parent.date_sorted = datetime.now()
+                self.instance.parent.save()
+        return super(PostForm, self).save(commit = True)
         
-
-        post = super(PostForm, self).save(commit = False)
-        if post.parent is None:
-            post.date_sorted = datetime.now()
-        else:
-            post.parent.date_sorted = datetime.now()
-            post.parent.save()
-        if not self.instance.pk:
-            post.author = self.author
-        
-        post.save()
-        return post
     class Meta:
         model = Post
         exclude = ('author','parent')
