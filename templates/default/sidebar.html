@@ -22,7 +22,7 @@
 {% include "tags/brief_list.html" %}
 </div>
 <div class='column'>
-    <div class='column_header'>Recent Threads</div>
+    <div class='column_header'>Recent Thread (<a href='{% url "posts:list_recent_threads" %}'>View All</a>) </div>
     {% for p in global_latest_posts %}
 		<div class="{% cycle 'recent_threads_item_box_even' 'rect_threads_item_box_odd' %}">
         <a class="recent_threads_item" href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>

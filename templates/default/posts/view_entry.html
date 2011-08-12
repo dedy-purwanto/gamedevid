@@ -25,7 +25,7 @@
         </div>
         {% if p.sticky_tags.all.0.tag.id == SETTINGS.TAG_IMAGE_ID %}
         <div class='random_image_container'>
-            <img src='{% thumbnail post.image.image 550x413 %}' />
+            <img src='{% thumbnail p.image.image 550x413 %}' />
         </div>
         {% endif %}
         <div class='post_content'>
@@ -35,7 +35,7 @@
             <tbody>
                 <tr>
                     <td style='width:300px; border:none;'>
-                        <img src='{% thumbnail post.game.image 550x413 %}' />
+                        <img src='{% thumbnail p.game.image 550x413 %}' />
                     </td>
                     <td align='left' valign='top' style='border:none'>
                         Developer : {{p.game.developer}} <br />   

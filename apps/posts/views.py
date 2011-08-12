@@ -13,6 +13,31 @@ from games.forms import GameForm
 from .forms import PostForm
 from tags.forms import TagForm
 
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
+
+def list_recent_threads(request):
+    posts = Post.get_latests()
+
+    paginator = Paginator(posts, 40)
+    try:
+        page = int(request.GET.get('page','1'))
+        posts = paginator.page(page)
+    except ValueError:
+        page = 1
+    try:
+        posts = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        posts = paginator.page(paginator.num_pages)
+    context = {
+        'post_list' : posts,
+    }
+    return render_to_response(
+        'posts/recent_threads.html',
+        context,
+        RequestContext(request)
+    )
+        
+
 
 @login_required
 def new(request, parent_id = None):
