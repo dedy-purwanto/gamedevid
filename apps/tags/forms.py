@@ -44,6 +44,8 @@ class TagForm(forms.Form):
         if tag_optional is not None:
             tags = []
             tags_optional = tag_optional.split(',')
+            if len(tags_optional) > 5:  
+                raise ValidationError("Maximum tags is 5")
             for t in tags_optional:
                 t = t.strip()
                 if len(t) > 0:
