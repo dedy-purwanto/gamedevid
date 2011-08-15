@@ -1,0 +1,34 @@
+{% load url from future %}
+
+{% if request.user.is_authenticated %}
+
+<div style="background:#606060; padding-top:1px; padding-bottom:1px;">
+	<div id="inline_navbar" >
+		<span id="inline_username">Hello, {{request.user}}</span>
+		<span class="inline_space"> </span>
+		<a class="inline_user_action" href='/'>Home</a>
+		<a class="inline_user_action" href="javascript:mainLayout.toggle('south')">Chat</a>
+		<a class="inline_user_action" href='{% url "posts:new" %}'>Write Post</a>
+		<a class="inline_user_action" href='{% url "posts:new" %}?game=yes'>Submit Game</a>
+		<a class="inline_user_action" href='{% url "posts:new" %}?image=yes'>Submit Image</a>
+		<span class="inline_space"> </span>
+		<a class="inline_user_action" href='{% url "users:edit_profile" %}'>Edit Profile</a>
+		<a class="inline_user_action" href='{% url "users:logout" %}'>Log Out</a>
+		<span class="inline_space"> </span>
+	</div>
+</div>
+
+{% else %}
+
+<div style="background:#606060; padding-top:1px; padding-bottom:1px;">
+	<div id="inline_navbar" >
+		<span id="inline_username">Hello, {{request.user}}</span>
+		<span class="inline_space"> </span>
+		<a class="inline_user_action" href='/'>Home</a>
+		<a class="inline_user_action" href='{% url "users:register" %}'>Register</a>
+		<a class="inline_user_action" href='{% url "users:login" %}'>Login</a>
+		<span class="inline_space"> </span>
+	</div>
+</div>
+
+{% endif %}

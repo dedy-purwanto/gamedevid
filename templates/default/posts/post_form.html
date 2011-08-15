@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% load url from future %}
+
+{% block headername %}
+	{% if request.GET.image %}
+		Submit Image [Gamedevid v2]
+	{% else %} {% if request.GET.game %}
+		Submit Game [Gamedevid v2]
+	{% else %}
+		Write Post [Gamedevid v2]
+	{% endif %} {% endif %}
+{% endblock %}
+
 {% block content %}
 {{form.media}}
 <script>

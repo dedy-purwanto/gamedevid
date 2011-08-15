@@ -4,12 +4,12 @@
 <tr><td>
 {% for p in latest_showcases %}
 {% if p.image %}
-<div class='latest_showcase_thumbnail' style='text-align:center;vertical-align:middle;'>	
-	<a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>
+<a href='{% url "posts:view" post_id=p.id slug=p.title_slug %}'>
+<div class='latest_showcase_thumbnail' style='text-align:center;vertical-align:middle;'>
     <img src='{% thumbnail p.image.image 100x80 %}' />
     <p>{{p.title}}</p>
-	</a>
 </div>
+</a>
 {% endif %}
 {% endfor %}
 </td></tr>

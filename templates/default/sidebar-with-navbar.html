@@ -1,4 +1,21 @@
 {% load url from future %}
+{% include "users/auth_widget.html" %}
+{% if request.user.is_authenticated %}
+<div class='column'>
+    <div class='column_header'>Hello, {{request.user}}</div>
+		<div class="user_action"><a href='/'>Home</a></div>
+        <div class="user_action"><a href="javascript:mainLayout.toggle('south')">Chat</a></div>
+        <div class="user_action"><a href='{% url "posts:new" %}'>Write Post</a></div>
+        <div class="user_action"><a href='{% url "posts:new" %}?game=yes'>Submit Game</a></div>
+        <div class="user_action"><a href='{% url "posts:new" %}?image=yes'>Submit Image</a></div>
+        <br /><br />
+        <div class="user_action"><a href='{% url "users:edit_profile" %}'>Edit Profile</a></div>
+        <div class="user_action"><a href='{% url "users:logout" %}'>Log Out</a></div>
+    </div>
+</div>
+
+
+{% endif %}
 
 <div class='column'>
 <div class='column_header'>Forums</div>

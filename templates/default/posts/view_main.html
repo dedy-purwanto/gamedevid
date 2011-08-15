@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load url from future %}
+
+{% block headername %}
+{{post_parent.title}} [Gamedevid v2]
+{% endblock %}
+
 {% block content %}
 
 {% include "tags/breadcrumbs.html" with post=post_parent %}

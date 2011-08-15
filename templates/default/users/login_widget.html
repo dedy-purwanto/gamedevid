@@ -1,0 +1,28 @@
+{% load url from future %}
+
+{% if request.user.is_authenticated %}
+{% else %}
+
+<div style="text-align: center;">
+	<form method='post' action='{% url "users:login" %}'>
+	<div style="display: inline-block; text-align:center; margin-right:1px;">
+		<small>username</small>
+		<br>
+		<input class="normal_input" name="username" id="username" style="width: 80px;" type="text">
+	</div>
+	<div style="display: inline-block; text-align:center; margin-right:1px;">
+		<small>password</small>
+		<br>
+		<input class="normal_input" name="password" id="password" style="width: 80px;" type="password">
+	</div>
+	<div style="display: inline-block; vertical-align:bottom; margin-bottom:2px;">
+		<button class="normal_button" type="submit">Login</button>
+	</div>
+	<br>
+	<small style="text-align: left;">Please login with your old GDI account<br>if you have one
+	</small>
+	{% csrf_token %}
+	</form>
+</div>
+
+{% endif %}

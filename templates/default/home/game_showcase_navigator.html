@@ -4,10 +4,12 @@
 <table width='100%'>
 <tr><td>
 {% for g in latest_games %}
+<a href='{% url "posts:view" post_id=g.post.id slug=g.post.title_slug %}'>
 <div class='showcase_item' post_id='{{g.post.id}}'>
     <img src='{% thumbnail g.image 120x96 %}' />
     <p>{{g.post.title_short}}</p>
 </div>
+</a>
 {% endfor %}
 </td></tr>
 </table>

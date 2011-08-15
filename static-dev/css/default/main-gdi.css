@@ -22,7 +22,7 @@ th{
     margin:auto;
     /* padding:10px; paddingnya di content ajah */
     /* background-color:#171717; */
-	background-color:#1a1a1a;
+	background-color:#101010;
 	border-style:none;
     /*border:0px solid #232323;*/
     height:auto !important;
@@ -37,7 +37,7 @@ th{
 	*/
 }
 #header{
-	background: #1a1a1a url(http://filebin.gamedevid.org/f/100sj.gif);
+	background: #0A0A0B url(http://www.gamedevid.org/forum/styles/GDIDark/misc/hdr_back-o.gif);
 	width: 100%;
 	height: 96px;
 	margin: 0;
